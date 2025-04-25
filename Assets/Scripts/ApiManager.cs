@@ -1,8 +1,12 @@
 using System;
 using System.Collections;
+using LenixSO.Logger;
+using Models;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Logger = LenixSO.Logger.Logger;
 using Random = UnityEngine.Random;
 
 public class ApiManager : MonoBehaviour
@@ -11,7 +15,7 @@ public class ApiManager : MonoBehaviour
     private const string BaseSpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
     private const string Fusion = "https://ifd-spaces.sfo2.digitaloceanspaces.com/sprites/";
     
-    private const uint ValueMax = 1018;
+    private const uint ValueMax = 1025;
 
     public Image test;
     public Image test2;
@@ -19,10 +23,38 @@ public class ApiManager : MonoBehaviour
     private void Start()
     {
         Debug.Log("Initializing");
-        StartCoroutine(GetFusionSprite(1, 3));
-        StartCoroutine(GetSprite(6, true));
+        //StartCoroutine(GetFusionSprite(1, 3));
+        //StartCoroutine(GetSprite(6, true));
+        StartCoroutine(GetPokeData(1));
     }
 
+    private IEnumerator GetPokeData(int pokemonId)
+    {
+        Logger.Log($"Getting poke data => { BaseURL }pokemon/{ pokemonId }");
+        var uwr = UnityWebRequest.Get( $"{ BaseURL }pokemon/{ pokemonId }");
+        yield return uwr.SendWebRequest();
+        if(uwr.result == UnityWebRequest.Result.Success)
+        {
+            //Logger.Log($"json => {uwr.downloadHandler.text}", LogFlags.GET);
+            var pokeData = JsonConvert.DeserializeObject<PokeData>(uwr.downloadHandler.text);
+            Logger.Log(pokeData.NameSpliceMoon, LogFlags.GET);
+        }
+        else
+        {
+            Logger.LogError("Error Ao Pegar pokemon", LogFlags.ERROR);
+        }
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     private IEnumerator GetSprite(uint spriteID, bool isBack = false)
     {
         var uwr = UnityWebRequestTexture.GetTexture(BaseSpriteURL + (isBack ? "back/" : "") + spriteID + ".png");

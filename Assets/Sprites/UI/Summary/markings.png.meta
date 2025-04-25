@@ -106,7 +106,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -117,12 +117,12 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -144,6 +144,19 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
@@ -153,7 +166,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Standalone
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -709,7 +722,31 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      markings_0: 2061701008622145290
+      markings_1: 5527446300050567755
+      markings_10: 6598683096924150184
+      markings_11: -4772915300537452887
+      markings_12: -7439523007261253303
+      markings_13: 8816147547325430431
+      markings_14: -8301838053694458144
+      markings_15: 8663559501085444962
+      markings_16: -3119587407729278837
+      markings_17: -5005073135714787
+      markings_18: -3833890868551444015
+      markings_19: -8970079462290820112
+      markings_2: -1751141145622045023
+      markings_20: -5709031842587267097
+      markings_21: 5851029887261434600
+      markings_22: -4428715043627929558
+      markings_23: -2953595588972862556
+      markings_3: -8116365806793128823
+      markings_4: 391544923351074105
+      markings_5: -6797170359629611318
+      markings_6: 9074317331812191494
+      markings_7: -6383154242574328131
+      markings_8: -3345112695545001929
+      markings_9: -4597726567417514598
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

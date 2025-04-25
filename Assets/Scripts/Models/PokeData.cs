@@ -1,0 +1,93 @@
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+
+namespace Models
+{
+    public class PokeData
+    {
+        [JsonProperty("name")] public string NameSpliceMoon { get; set; }
+        [JsonProperty("abilities")] public List<AbilityData> abilities;
+        [JsonProperty("base_experience")] public int baseExperience;
+        [JsonProperty("cries")] public SoundUrl soundUrl;
+        [JsonProperty("moves")] public List<MovesAttack> movesAttack;
+        [JsonProperty("sprites")] public Sprites sprites;
+        [JsonProperty("types")] public List<PokeType> types;
+        [JsonProperty("stats")] public List<Stats> status;
+    }
+    //==== Skills
+    public struct AbilityData
+    {
+        public Ability ability { get; set; }
+        public bool is_hidden { get; set; }
+        public int slot { get; set; }
+    }
+    public struct Ability
+    {
+        public string name { get; set; }
+        public string url { get; set; }
+    }
+    //====
+
+    //==== Move Attack
+    public struct MovesAttack
+    {
+        [JsonProperty("move")] public Move move { get; set; }
+    }
+    public struct Move
+    {
+        [JsonProperty("name")] public string nameAttack { get; set; }
+        [JsonProperty("url")] public string url { get; set; }
+    }
+    //====
+    
+    //==== Sprites
+    public struct Sprites
+    {
+        [JsonProperty("front_default")] public string frontDefault { get; set; }
+        [JsonProperty("front_female")] public string frontFemale { get; set; }
+        [JsonProperty("front_shiny")] public string frontShiny { get; set; }
+        [JsonProperty("front_shiny_female")] public string frontShinyFemale { get; set; }
+        
+        [JsonProperty("back_default")] public string backDefault { get; set; }
+        [JsonProperty("back_female")] public string backFemale { get; set; }
+        [JsonProperty("back_shiny")] public string backShiny { get; set; }
+        [JsonProperty("back_shiny_female")] public string backShinyFemale { get; set; }
+    }
+    //====
+    public struct SoundUrl
+    {
+        public string latest { get; set; }
+        public string legacy { get; set; }
+    }
+    //====
+
+    public struct PokeType
+    {
+        [JsonProperty("slot")] public int slot { get; set; }
+        [JsonProperty("name")] public string name { get; set; }
+        [JsonProperty("type")] public Type type { get; set; }
+    }
+
+    public struct Type
+    {
+        [JsonProperty("name")] public string nameType { get; set; }
+        [JsonProperty("url")] public string url { get; set; }
+    }
+    
+    //==== Stats
+
+    public struct Stats
+    {
+        [JsonProperty("base_stat")] public int baseStatus { get; set; }
+        [JsonProperty("effort")] public int effort { get; set; }
+        [JsonProperty("stat")] public Stat status { get; set; }
+    }
+
+    public struct Stat
+    {
+        [JsonProperty("name")] public string nameStat { get; set; }
+        [JsonProperty("url")] public string url { get; set; }
+    }
+    //====
+}
+

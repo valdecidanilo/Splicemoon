@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8785128593553276120}
   - component: {fileID: 5924385865353271759}
   - component: {fileID: 7615559972128472803}
+  - component: {fileID: 1181230982822167899}
   m_Layer: 5
   m_Name: Board_Hp
   m_TagString: Untagged
@@ -76,6 +77,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 2.54
+--- !u!114 &1181230982822167899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3552493945531273510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93957264c7c02014bb61d99f86353ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthBarConditions:
+  - {fileID: 2203901237265948030, guid: a8100066c54894d4098c50c8748c3a03, type: 3}
+  - {fileID: -1002180923, guid: a8100066c54894d4098c50c8748c3a03, type: 3}
+  - {fileID: 1897751205, guid: a8100066c54894d4098c50c8748c3a03, type: 3}
+  - {fileID: -1204043746, guid: a8100066c54894d4098c50c8748c3a03, type: 3}
+  - {fileID: -1924774225, guid: a8100066c54894d4098c50c8748c3a03, type: 3}
+  - {fileID: -1327766506, guid: a8100066c54894d4098c50c8748c3a03, type: 3}
+  healthBarImage: {fileID: 3557738461219613690}
+  maxHealth: 100
+  currentHealth: 100
+  healthText: {fileID: 0}
 --- !u!1 &8616076255915047144
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,10 +166,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 2203901237265948030, guid: 5c2c10a884e85b341bee6e60f9b3db4a, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0

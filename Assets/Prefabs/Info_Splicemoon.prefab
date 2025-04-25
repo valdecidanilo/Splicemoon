@@ -145,6 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5969294478928046283}
+  - component: {fileID: 50906300216075214}
   m_Layer: 5
   m_Name: Info_Splicemoon
   m_TagString: Untagged
@@ -174,6 +175,24 @@ RectTransform:
   m_AnchoredPosition: {x: -1.0554237, y: 5.1881504}
   m_SizeDelta: {x: 90.242744, y: 11.5424}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &50906300216075214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019755845766535164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80337fc1a1eea414f838d90219ca4557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameSplicemon: {fileID: 3041916322628760138}
+  levelSplicemon: {fileID: 6493834749722900964}
+  genderSplicemon: {fileID: 2666922908056837691}
+  genderSprites:
+  - {fileID: 2069938804795247361, guid: 94494ef66597d654ab601956e191b09c, type: 3}
+  - {fileID: 3798582454716192034, guid: 351470c051b1ee34faea60ba5db0cfaf, type: 3}
 --- !u!1 &4691085601258413375
 GameObject:
   m_ObjectHideFlags: 0
