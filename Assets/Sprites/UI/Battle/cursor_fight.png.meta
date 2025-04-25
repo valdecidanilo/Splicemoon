@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: a8f8059e905c39545a871441054893bd
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8779498436504221606
+    second: cursor_fight_0
+  - first:
+      213: -6318817432313645566
+    second: cursor_fight_1
+  - first:
+      213: -2053309278182153672
+    second: cursor_fight_2
+  - first:
+      213: -4144301491929390502
+    second: cursor_fight_3
+  - first:
+      213: -3171292557398895335
+    second: cursor_fight_4
+  - first:
+      213: 2437932625861153374
+    second: cursor_fight_5
+  - first:
+      213: 6642442954459530514
+    second: cursor_fight_6
+  - first:
+      213: -8680004559704374335
+    second: cursor_fight_7
+  - first:
+      213: -6299580817658768498
+    second: cursor_fight_8
+  - first:
+      213: -1532696819563315817
+    second: cursor_fight_9
+  - first:
+      213: 158475808480424481
+    second: cursor_fight_10
+  - first:
+      213: 5081566138985734455
+    second: cursor_fight_11
+  - first:
+      213: -8792389397736427452
+    second: cursor_fight_12
+  - first:
+      213: -6497807447652040401
+    second: cursor_fight_13
+  - first:
+      213: -751582195932206046
+    second: cursor_fight_14
+  - first:
+      213: 1537597629703630110
+    second: cursor_fight_15
+  - first:
+      213: 4596492893311669579
+    second: cursor_fight_16
+  - first:
+      213: -3818577610244907070
+    second: cursor_fight_17
+  - first:
+      213: 7315279317123398402
+    second: cursor_fight_18
+  - first:
+      213: 6378446036033007434
+    second: cursor_fight_19
+  - first:
+      213: 4303159580088940912
+    second: cursor_fight_20
+  - first:
+      213: -3491811247076694016
+    second: cursor_fight_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 100
+    crunchedCompression: 1
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: cursor_fight_0
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 966
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a58811210b4f82680800000000000000
+      internalID: -8779498436504221606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_1
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 920
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 206366a160d0f48a0800000000000000
+      internalID: -6318817432313645566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_2
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 874
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83260f3271e2183e0800000000000000
+      internalID: -2053309278182153672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_3
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 828
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a526d6320cb7c76c0800000000000000
+      internalID: -4144301491929390502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_4
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 782
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9151665a83e4df3d0800000000000000
+      internalID: -3171292557398895335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_5
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 736
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e521ac67ec645d120800000000000000
+      internalID: 2437932625861153374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_6
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 690
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2154b558ca2be2c50800000000000000
+      internalID: 6642442954459530514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_7
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 644
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c3cc0277dd6a8780800000000000000
+      internalID: -8680004559704374335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_8
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 598
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8395997f946398a0800000000000000
+      internalID: -6299580817658768498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_9
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 552
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79dbe89fc54cabae0800000000000000
+      internalID: -1532696819563315817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_10
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 506
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 122f7fd78e4033200800000000000000
+      internalID: 158475808480424481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_11
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 460
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 731e5e8ea79558640800000000000000
+      internalID: 5081566138985734455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_12
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 414
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44072054d682bf580800000000000000
+      internalID: -8792389397736427452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_13
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 368
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f2100df9d8623d5a0800000000000000
+      internalID: -6497807447652040401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_14
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 322
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22ce3ff89f7d195f0800000000000000
+      internalID: -751582195932206046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_15
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 276
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1da7fdc5e4a65510800000000000000
+      internalID: 1537597629703630110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_16
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 230
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b451376eee50acf30800000000000000
+      internalID: 4596492893311669579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_17
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 184
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cf971a25efa10bc0800000000000000
+      internalID: -3818577610244907070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_18
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 138
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20bf6e9e7c7158560800000000000000
+      internalID: 7315279317123398402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_19
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 92
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4feeb410eac48850800000000000000
+      internalID: 6378446036033007434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_20
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 46
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0793507c6d4e7bb30800000000000000
+      internalID: 4303159580088940912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: cursor_fight_21
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 0
+        width: 14
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 008a743db289a8fc0800000000000000
+      internalID: -3491811247076694016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      cursor_fight_0: -8779498436504221606
+      cursor_fight_1: -6318817432313645566
+      cursor_fight_10: 158475808480424481
+      cursor_fight_11: 5081566138985734455
+      cursor_fight_12: -8792389397736427452
+      cursor_fight_13: -6497807447652040401
+      cursor_fight_14: -751582195932206046
+      cursor_fight_15: 1537597629703630110
+      cursor_fight_16: 4596492893311669579
+      cursor_fight_17: -3818577610244907070
+      cursor_fight_18: 7315279317123398402
+      cursor_fight_19: 6378446036033007434
+      cursor_fight_2: -2053309278182153672
+      cursor_fight_20: 4303159580088940912
+      cursor_fight_21: -3491811247076694016
+      cursor_fight_3: -4144301491929390502
+      cursor_fight_4: -3171292557398895335
+      cursor_fight_5: 2437932625861153374
+      cursor_fight_6: 6642442954459530514
+      cursor_fight_7: -8680004559704374335
+      cursor_fight_8: -6299580817658768498
+      cursor_fight_9: -1532696819563315817
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
