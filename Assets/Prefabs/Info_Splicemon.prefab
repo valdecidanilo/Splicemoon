@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1908378772992568662}
   - component: {fileID: 5659678093731358628}
   - component: {fileID: 3041916322628760138}
+  - component: {fileID: 841825998925932550}
   m_Layer: 5
   m_Name: Text_Name
   m_TagString: Untagged
@@ -29,14 +30,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2193099643115332529}
   m_Father: {fileID: 5969294478928046283}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 22.140652, y: -5.771199}
-  m_SizeDelta: {x: 44.2813, y: 11.5424}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.4759941, y: -6.8999996}
+  m_SizeDelta: {x: 0, y: 11.5424}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &5659678093731358628
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -65,10 +67,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Charizard
+  m_text: name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8935a00049d4c434e91654f2899ee82f, type: 2}
-  m_sharedMaterial: {fileID: 3836965805423585785, guid: 8935a00049d4c434e91654f2899ee82f, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 47f2136f823605c4e83e1f97f864cbbd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,13 +94,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 13
+  m_fontSize: 11.5
   m_fontSizeBase: 13
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 10
+  m_fontSizeMax: 13
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
@@ -136,6 +138,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &841825998925932550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187373077727150401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!1 &2019755845766535164
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,7 +163,7 @@ GameObject:
   - component: {fileID: 5969294478928046283}
   - component: {fileID: 50906300216075214}
   m_Layer: 5
-  m_Name: Info_Splicemoon
+  m_Name: Info_Splicemon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,9 +181,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1908378772992568662}
   - {fileID: 7757017082954442604}
-  - {fileID: 2193099643115332529}
+  - {fileID: 1908378772992568662}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -193,6 +208,9 @@ MonoBehaviour:
   genderSprites:
   - {fileID: 2069938804795247361, guid: 94494ef66597d654ab601956e191b09c, type: 3}
   - {fileID: 3798582454716192034, guid: 351470c051b1ee34faea60ba5db0cfaf, type: 3}
+  spriteSplicemon: {fileID: 0}
+  healthBar: {fileID: 0}
+  animationSplicemon: {fileID: 0}
 --- !u!1 &4691085601258413375
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +245,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 75.21064, y: -5.771199}
+  m_AnchoredPosition: {x: 72.6, y: -5.771199}
   m_SizeDelta: {x: 30.0642, y: 11.5424}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6017569663612829712
@@ -261,7 +279,7 @@ MonoBehaviour:
   m_text: Lv55
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8935a00049d4c434e91654f2899ee82f, type: 2}
-  m_sharedMaterial: {fileID: 3836965805423585785, guid: 8935a00049d4c434e91654f2899ee82f, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 47f2136f823605c4e83e1f97f864cbbd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -292,7 +310,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -359,12 +377,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5969294478928046283}
+  m_Father: {fileID: 1908378772992568662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.735424, y: -0.7381549}
-  m_SizeDelta: {x: 5.9596, y: 7.9461}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0.0000011921}
+  m_SizeDelta: {x: 5.9596004, y: 7.9461}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1428400394516328377
 CanvasRenderer:

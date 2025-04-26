@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using LenixSO.Logger;
 using Models;
 using Newtonsoft.Json;
@@ -12,23 +13,19 @@ using Random = UnityEngine.Random;
 public class ApiManager : MonoBehaviour
 {
     private const string BaseURL = "https://pokeapi.co/api/v2/";
-    private const string BaseSpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
+    //private const string BaseSpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
     private const string Fusion = "https://ifd-spaces.sfo2.digitaloceanspaces.com/sprites/";
     
-    private const uint ValueMax = 1025;
-
-    public Image test;
-    public Image test2;
+    public static uint valueMax = 1025;
 
     private void Start()
     {
-        Debug.Log("Initializing");
+        //Debug.Log("Initializing");
         //StartCoroutine(GetFusionSprite(1, 3));
         //StartCoroutine(GetSprite(6, true));
-        StartCoroutine(GetPokeData(1));
     }
 
-    private IEnumerator GetPokeData(int pokemonId)
+    public static IEnumerator GetPokeData(int pokemonId, Action<PokeData> callback)
     {
         Logger.Log($"Getting poke data => { BaseURL }pokemon/{ pokemonId }");
         var uwr = UnityWebRequest.Get( $"{ BaseURL }pokemon/{ pokemonId }");
@@ -38,46 +35,37 @@ public class ApiManager : MonoBehaviour
             //Logger.Log($"json => {uwr.downloadHandler.text}", LogFlags.GET);
             var pokeData = JsonConvert.DeserializeObject<PokeData>(uwr.downloadHandler.text);
             Logger.Log(pokeData.NameSpliceMoon, LogFlags.GET);
+            callback.Invoke(pokeData);
         }
         else
         {
             Logger.LogError("Error Ao Pegar pokemon", LogFlags.ERROR);
         }
     }
-
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    private IEnumerator GetSprite(uint spriteID, bool isBack = false)
+    public static IEnumerator GetSprite(string url, Action<Sprite> callback)
     {
-        var uwr = UnityWebRequestTexture.GetTexture(BaseSpriteURL + (isBack ? "back/" : "") + spriteID + ".png");
+        var uwr = UnityWebRequestTexture.GetTexture(url);
         yield return uwr.SendWebRequest();
         
         if (uwr.result == UnityWebRequest.Result.Success)
         {
             var texture = DownloadHandlerTexture.GetContent(uwr);
-            test2.sprite = Sprite.Create(
+            texture.filterMode = FilterMode.Point;
+            var sprite = Sprite.Create(
                 texture,
                 new Rect(0, 0, texture.width, texture.height),
                 new Vector2(0.5f, 0f)
             );
-            Debug.Log("Get Image succeeded");
+            callback?.Invoke(sprite);
         }
         else
         {
-            Debug.LogError($"Failed to get image: {uwr.error}");
+            Logger.LogError($"Failed to get image: {uwr.error}");
         }
     }
     private IEnumerator GetFusionSprite(uint head, uint body)
     {
-        Debug.Log("Getting Images...");
         var endpoint = "";
         var hasImage = false;
 
@@ -88,7 +76,6 @@ public class ApiManager : MonoBehaviour
         }));
 
         var fullUrl = $"{Fusion}{endpoint}{head}.{body}.png";
-        Debug.Log($"Endpoint is => {fullUrl}");
 
         using var uwr = UnityWebRequestTexture.GetTexture(fullUrl);
         yield return uwr.SendWebRequest();
@@ -96,16 +83,55 @@ public class ApiManager : MonoBehaviour
         if (uwr.result == UnityWebRequest.Result.Success)
         {
             var texture = DownloadHandlerTexture.GetContent(uwr);
-            test.sprite = Sprite.Create(
+            texture.filterMode = FilterMode.Point;
+            var sprite = Sprite.Create(
                 texture,
                 new Rect(0, 0, texture.width, texture.height),
                 new Vector2(0.5f, 0f)
             );
-            Debug.Log("Get Image succeeded");
         }
         else
         {
-            Debug.LogError($"Failed to get image: {uwr.error}");
+            Logger.LogError($"Failed to get image: {uwr.error}");
+        }
+    }
+
+    public static IEnumerator GetMoveDetails(List<string> urls, Action<List<MoveDetails>> callback)
+    {
+        var moveDetailsList = new List<MoveDetails>();
+        for (var i = 0; i < 4; i++)
+        {
+            if (string.IsNullOrEmpty(urls[i]))
+                continue;
+            
+            var uwr = UnityWebRequest.Get(urls[i]);
+            yield return uwr.SendWebRequest();
+        
+            if (uwr.result == UnityWebRequest.Result.Success)
+            {
+                var moveDetails = JsonConvert.DeserializeObject<MoveDetails>(uwr.downloadHandler.text);
+                moveDetailsList.Add(moveDetails);
+            }
+            else
+            {
+                Logger.LogError($"Error ao pegar detalhes do movimento: {urls}", LogFlags.ERROR);
+            }
+        }
+    
+        callback.Invoke(moveDetailsList);
+    }
+    public static IEnumerator GetSound(string url, Action<AudioClip> callback)
+    {
+        var uwr = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.OGGVORBIS);
+        yield return uwr.SendWebRequest();
+        if (uwr.result == UnityWebRequest.Result.Success)
+        {
+            var clip = DownloadHandlerAudioClip.GetContent(uwr);
+            callback?.Invoke(clip);
+        }
+        else
+        {
+            Logger.LogError($"Failed to get sound: {uwr.error}");
         }
     }
     private static IEnumerator GetImage(string relativeUrl, Action<bool> callback)

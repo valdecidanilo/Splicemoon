@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float lerpDuration = 0.5f;
 
     private Coroutine _currentLerpCoroutine;
-
+    public event Action OnDeath; 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -28,18 +28,22 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    private void ChangeHealth(int amount)
+    public void ChangeHealth(int amount)
     {
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         UpdateHealthBar();
     }
 
-    private void SetHealth(int health)
+    public void SetHealth(int health)
     {
         currentHealth = Mathf.Clamp(health, 0, maxHealth);
         UpdateHealthBar();
     }
 
+    private void VerifyDeath()
+    {
+        if(currentHealth <= 0) OnDeath?.Invoke();
+    }
     public void SetMaxHealth(int healthMax)
     {
         maxHealth = healthMax;
@@ -53,7 +57,7 @@ public class HealthBar : MonoBehaviour
         var index = (healthBarConditions.Length - 1) - Mathf.FloorToInt(healthPercentage * (healthBarConditions.Length - 1));
         index = Mathf.Clamp(index, 0, healthBarConditions.Length - 1);
         healthBarImage.sprite = healthBarConditions[index];
-
+        VerifyDeath();
         if (_currentLerpCoroutine != null)
         {
             StopCoroutine(_currentLerpCoroutine);
@@ -77,13 +81,12 @@ public class HealthBar : MonoBehaviour
             healthBarImage.fillAmount = Mathf.Lerp(startFillAmount, targetFillAmount, t);
             
             var currentHealthValue = Mathf.RoundToInt(Mathf.Lerp(startHealthValue, targetHealthValue, t));
-            if (healthText) healthText.text = $"{currentHealthValue}/{maxHealth}";
+            if (healthText) healthText.text = $"{currentHealthValue}/ {maxHealth}";
             
             yield return null;
         }
-
         healthBarImage.fillAmount = targetFillAmount;
-        if (healthText) healthText.text = $"{targetHealthValue}/{maxHealth}";
+        if (healthText) healthText.text = $"{targetHealthValue}/ {maxHealth}";
         
         _currentLerpCoroutine = null;
     }

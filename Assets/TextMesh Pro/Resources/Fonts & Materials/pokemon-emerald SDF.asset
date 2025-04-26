@@ -3750,7 +3750,7 @@ Material:
     - _ColorMask: 15
     - _CullMode: 0
     - _Diffuse: 0.5
-    - _FaceDilate: 0
+    - _FaceDilate: 0.07
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
     - _GlowInner: 0.05
@@ -3768,8 +3768,8 @@ Material:
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
     - _ScaleRatioA: 0.90909094
-    - _ScaleRatioB: 0.7386364
-    - _ScaleRatioC: 0.7386364
+    - _ScaleRatioB: 0.675
+    - _ScaleRatioC: 0.675
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0

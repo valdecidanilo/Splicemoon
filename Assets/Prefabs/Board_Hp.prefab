@@ -100,6 +100,7 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 100
   healthText: {fileID: 0}
+  lerpDuration: 0.5
 --- !u!1 &8616076255915047144
 GameObject:
   m_ObjectHideFlags: 0
