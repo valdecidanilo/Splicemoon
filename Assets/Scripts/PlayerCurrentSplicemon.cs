@@ -14,6 +14,13 @@ public class PlayerCurrentSplicemon : MonoBehaviour
 
     public Action OnShowMoveTexts;
     public Action OnShowSpliceInfo;
+    public Action<PokeData> OnGetPokeData;
+    
+    // Locale
+    public int Level = 1;
+    public bool isFemale;
+    public int hp = 100;
+    public int hpMax = 100;
     private void Start()
     {
         StartCoroutine(Initialize());
@@ -23,7 +30,9 @@ public class PlayerCurrentSplicemon : MonoBehaviour
     {
         listMoves.Clear();
         yield return ApiManager.GetPokeData(myFirstPoke, poke => { currentSplicemonData = poke; });
+        hp = hpMax;
         OnShowSpliceInfo?.Invoke();
+        OnGetPokeData?.Invoke(currentSplicemonData);
         Logger.Log($"nome: {currentSplicemonData.NameSpliceMoon}");
         var urlList = currentSplicemonData.movesAttack.Select(move => move.move.url).ToList();
         Logger.Log("Getting Moves");
@@ -35,5 +44,6 @@ public class PlayerCurrentSplicemon : MonoBehaviour
             }
             OnShowMoveTexts?.Invoke();
         });
+        
     }
 }

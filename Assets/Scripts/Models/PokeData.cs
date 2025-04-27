@@ -90,7 +90,7 @@ namespace Models
     
     //==== Stats
 
-    public struct Stats
+    public partial struct Stats
     {
         [JsonProperty("base_stat")] public int baseStatus { get; set; }
         [JsonProperty("effort")] public int effort { get; set; }

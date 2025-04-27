@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using LenixSO.Logger;
 using Models;
@@ -15,21 +16,26 @@ public class BattleUIManager : MonoBehaviour
 
     public Animator animatorTransition;
     
+    public AudioSource sourceBattleSound;
+    
     public InfoSplicemon opponentInfo;
     public InfoSplicemon playerInfo;
     
-    public int currentIDInterface;
+    public int currentIDInterface = -1;
     private int currentSelected = 0;
+    [SerializeField] public bool inBattle = false;
+    [SerializeField] public bool firstTime = true;
     public AudioSource audioSource;
 
     public TMP_Text typeAttack;
     public TMP_Text powerPoint;
+    public TMP_Text messageText;
     public List<TMP_Text> textsAttacks;
     public event Action OnAttackSlot1;
     public event Action OnAttackSlot2;
     public event Action OnAttackSlot3;
     public event Action OnAttackSlot4;
-
+    
     private void OnEnable()
     {
         currentSplicemon.OnShowMoveTexts += UpdateTexts;
@@ -45,6 +51,7 @@ public class BattleUIManager : MonoBehaviour
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
         var vertical = Input.GetAxisRaw("Vertical");
+        if (inBattle) return;
         if(currentIDInterface == 0) userSelectInterface.Move(horizontal, vertical, Selected);
         else
         {
@@ -58,6 +65,8 @@ public class BattleUIManager : MonoBehaviour
             }
             userAttackInterface.Move(horizontal, vertical, Selected);
         }
+        if(Input.GetKeyDown(KeyCode.H)) HideMessage();
+        if(Input.GetKeyDown(KeyCode.J)) ShowMessage();
     }
 
     public void ShowMessage() => messageUI.SetAsLastSibling();
@@ -68,7 +77,7 @@ public class BattleUIManager : MonoBehaviour
         if (currentSelected != id)
         {
             currentSelected = id;
-            Logger.Log($"Selected: {currentSelected}");
+            //Logger.Log($"Selected: {currentSelected}");
             audioSource.Play();
             if (currentIDInterface == 1)
             {
@@ -80,9 +89,16 @@ public class BattleUIManager : MonoBehaviour
                     : $"0/0");
             }
         }
-        if (!Input.GetKeyDown(KeyCode.KeypadEnter) && !Input.GetKeyDown(KeyCode.Return)) return;
-        if(currentIDInterface == 0) HandleUserInterface(id);
-        else HandlerAttackInterface(id);
+        if (!inBattle && !firstTime && !Input.GetKeyDown(KeyCode.KeypadEnter) && !Input.GetKeyDown(KeyCode.Return)) return;
+        switch (currentIDInterface)
+        {
+            case 0:
+                HandleUserInterface(id);
+                break;
+            case 1:
+                HandlerAttackInterface(id);
+                break;
+        }
         
     }
 
@@ -123,7 +139,7 @@ public class BattleUIManager : MonoBehaviour
     {
         foreach (var txt in textsAttacks)
             txt.SetText("-");
-        for (var i = 0; i < textsAttacks.Count-1; i++)
+        for (var i = 0; i < textsAttacks.Count; i++)
             textsAttacks[i].SetText($"{currentSplicemon.listMoves[i].nameMove}");
     }
     private void HandlerAttackInterface(int id)
@@ -148,5 +164,43 @@ public class BattleUIManager : MonoBehaviour
                 OnAttackSlot4?.Invoke();
                 break;
         }
+    }
+
+    public IEnumerator Dialogue(string message, float lettersPerSecond = 30f, bool waitForInput = true, bool hidenMessage = true)
+    {
+        ShowMessage();
+        messageText.text = "";
+    
+        var delay = 1f / lettersPerSecond;
+        var textCompleted = false;
+    
+        StartCoroutine(TypeText(message, delay, () => textCompleted = true));
+    
+        if (waitForInput)
+        {
+            yield return new WaitUntil(() => textCompleted || Input.GetKeyDown(KeyCode.Z));
+        
+            if (!textCompleted)
+            {
+                StopAllCoroutines();
+                messageText.text = message;
+            }
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
+        }
+        else
+        {
+            yield return new WaitUntil(() => textCompleted);
+        }
+        if(hidenMessage) HideMessage();
+    }
+    private IEnumerator TypeText(string message, float delay, Action onComplete)
+    {
+        for (var i = 0; i < message.Length; i++)
+        {
+            messageText.text += message[i];
+            yield return new WaitForSeconds(delay);
+        }
+    
+        onComplete?.Invoke();
     }
 }

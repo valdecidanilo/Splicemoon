@@ -137,7 +137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &18787315
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2212,7 +2212,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749ecd0386944194789a0b34750ea81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFirstPoke: 4
+  myFirstPoke: 273
+  Level: 1
+  isFemale: 0
+  hp: 100
+  hpMax: 100
 --- !u!4 &693487550
 Transform:
   m_ObjectHideFlags: 0
@@ -2523,8 +2527,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIManager: {fileID: 884763897}
+  playerPokeData: {fileID: 693487549}
   battleSound: {fileID: 1986083875}
   hitClip: {fileID: 8300000, guid: 2a4ec34413a73fc4995b177dcaa8ffab, type: 3}
+  victoryClip: {fileID: 8300000, guid: ceee5a2a531ed8a49a75e7d5cc679b3f, type: 3}
 --- !u!1 &864937960
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,12 +2625,16 @@ MonoBehaviour:
   userAttackInterface: {fileID: 261136615}
   currentSplicemon: {fileID: 693487549}
   animatorTransition: {fileID: 864937962}
+  sourceBattleSound: {fileID: 666707657}
   opponentInfo: {fileID: 808915902817260274}
   playerInfo: {fileID: 1442116511}
-  currentIDInterface: 0
+  currentIDInterface: -1
+  inBattle: 0
+  firstTime: 1
   audioSource: {fileID: 1472674608}
   typeAttack: {fileID: 1080458179}
   powerPoint: {fileID: 1051939201}
+  messageText: {fileID: 2142307327}
   textsAttacks:
   - {fileID: 1710197549}
   - {fileID: 379867727}
@@ -4825,8 +4835,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 56.7, y: -20.571007}
-  m_SizeDelta: {x: 93.0282, y: 24.6834}
+  m_AnchoredPosition: {x: 64.54721, y: -20.571007}
+  m_SizeDelta: {x: 108.7226, y: 24.6834}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142307327
 MonoBehaviour:
@@ -4848,9 +4858,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'What will
-
-    ZIGZAGOON do?'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8935a00049d4c434e91654f2899ee82f, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 52ab4dac94e075f49812fa75e316c505, type: 2}
