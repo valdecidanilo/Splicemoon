@@ -13,16 +13,47 @@ using Random = UnityEngine.Random;
 public class ApiManager : MonoBehaviour
 {
     private const string BaseURL = "https://pokeapi.co/api/v2/";
-    //private const string BaseSpriteURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
     private const string Fusion = "https://ifd-spaces.sfo2.digitaloceanspaces.com/sprites/";
-    
-    public static uint valueMax = 1025;
+
+    public const uint ValueMax = 1025;
+
+    public SpliceMon current;
+    public InventoryObject playerInventory;
 
     private void Start()
     {
-        //Debug.Log("Initializing");
-        //StartCoroutine(GetFusionSprite(1, 3));
-        //StartCoroutine(GetSprite(6, true));
+        var pokeID = (int) Random.Range(0, ValueMax);
+        StartCoroutine(GetDataWaiter(pokeID));
+    }
+
+    public IEnumerator GetDataWaiter(int pokeID = 1)
+    {
+        PokeData splicemon = null;
+        Sprite frontSprite = null;
+        Sprite backSprite = null;
+        var haveFemale = false;
+        var isFemale = false;
+        yield return GetPokeData(pokeID,
+            pokeData =>
+            {
+                splicemon = pokeData;
+                haveFemale = pokeData.sprites.frontFemale != null ? true : false;
+                if (haveFemale)
+                    if (Random.Range(0, 100) < 40)
+                        isFemale = true;
+            });
+        yield return GetSprite(isFemale ? splicemon.sprites.frontFemale : splicemon.sprites.frontDefault, spr =>
+        {
+            frontSprite = spr;
+        });
+        yield return GetSprite(isFemale ? splicemon.sprites.backFemale : splicemon.sprites.backDefault, spr =>
+        {
+            backSprite = spr;
+        });
+        current = ScriptableObject.CreateInstance<SpliceMon>();
+        current.UpdateSliceMon(splicemon, isFemale);
+        Logger.LogWarning("Atualizou o Scriptable", LogFlags.GET);
+        playerInventory.AddItem(current);
     }
 
     public static IEnumerator GetPokeData(int pokemonId, Action<PokeData> callback)

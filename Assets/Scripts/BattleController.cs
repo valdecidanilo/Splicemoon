@@ -35,7 +35,7 @@ public class BattleController : MonoBehaviour
     private void PlayerDeath() => deathPlayer = false;
     private void Start()
     {
-        StartCoroutine(StartBattle());
+        //StartCoroutine(StartBattle());
     }
 
     private void AttackSlot1()
@@ -45,17 +45,17 @@ public class BattleController : MonoBehaviour
 
     private void AttackSlot2()
     {
-        
+        StartCoroutine(PerformPlayerMove());
     }
 
     private void AttackSlot3()
     {
-        
+        StartCoroutine(PerformPlayerMove());
     }
 
     private void AttackSlot4()
     {
-        
+        StartCoroutine(PerformPlayerMove());
     }
     private void GetOpponentPokeData(PokeData data)
     {
@@ -76,7 +76,7 @@ public class BattleController : MonoBehaviour
     private IEnumerator StartBattle()
     {
         Logger.Log("Getting Opponent Poke Data");
-        var getOpponent = ApiManager.GetPokeData(Mathf.FloorToInt(Random.Range(0, ApiManager.valueMax)), GetOpponentPokeData);
+        var getOpponent = ApiManager.GetPokeData(Mathf.FloorToInt(Random.Range(0, ApiManager.ValueMax)), GetOpponentPokeData);
         yield return getOpponent;
         Logger.Log("Starting Battle");
         uIManager.animatorTransition.SetTrigger(StartAnimation);

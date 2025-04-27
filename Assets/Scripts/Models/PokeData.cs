@@ -6,6 +6,7 @@ namespace Models
 {
     public class PokeData
     {
+        [JsonProperty("id")] public int id { get; set; }
         [JsonProperty("name")] public string NameSpliceMoon { get; set; }
         [JsonProperty("abilities")] public List<AbilityData> abilities;
         [JsonProperty("base_experience")] public int baseExperience;

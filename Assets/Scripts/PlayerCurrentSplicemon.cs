@@ -23,7 +23,7 @@ public class PlayerCurrentSplicemon : MonoBehaviour
     public int hpMax = 100;
     private void Start()
     {
-        StartCoroutine(Initialize());
+        //StartCoroutine(Initialize());
     }
 
     private IEnumerator Initialize()

@@ -16,17 +16,6 @@ public class HealthBar : MonoBehaviour
 
     private Coroutine _currentLerpCoroutine;
     public event Action OnDeath; 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ChangeHealth(-10);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SetHealth(maxHealth);
-        }
-    }
 
     public void ChangeHealth(int amount)
     {
