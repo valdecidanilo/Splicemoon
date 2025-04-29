@@ -1,4 +1,7 @@
 ﻿using System;
+using Models;
+using UnityEngine;
+using Logger = LenixSO.Logger.Logger;
 
 namespace Schemas
 {
@@ -28,6 +31,19 @@ namespace Schemas
         {
             var stat = (int)(((2 * baseStat + iv + ev / 4) * level / 100 + 5) * natureMultiplier);
             return stat;
+        }
+        public static int CalculateDamage(int pp, int level, int attackstats, int defensestats)
+        {
+            var random = UnityEngine.Random.Range(0.85f, 1.0f);
+
+            var baseDamage = ((2f * level / 5f + 2f) * pp * attackstats / defensestats / 50f + 2f) * random;
+
+            //var modifiers = burn * screen * targets * weather * ff * stockpile * critical * doubleDmg * charge * hh * stab * type1 * type2 * random;
+
+            // Dano final
+            //var finalDamage = baseDamage * modifiers;
+            Logger.LogWarning($"Damage: {baseDamage}");
+            return Mathf.FloorToInt(baseDamage);
         }
     }
 }

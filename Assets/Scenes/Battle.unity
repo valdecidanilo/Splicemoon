@@ -2212,11 +2212,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749ecd0386944194789a0b34750ea81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFirstPoke: 273
-  Level: 1
-  isFemale: 0
-  hp: 100
-  hpMax: 100
+  currentSplicemon: {fileID: 0}
+  splicemons: []
+  bagInitialized: 0
 --- !u!4 &693487550
 Transform:
   m_ObjectHideFlags: 0
@@ -2527,7 +2525,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uIManager: {fileID: 884763897}
-  playerPokeData: {fileID: 693487549}
+  playerSplicemons: {fileID: 693487549}
+  opponentPokeData: {fileID: 0}
   battleSound: {fileID: 1986083875}
   hitClip: {fileID: 8300000, guid: 2a4ec34413a73fc4995b177dcaa8ffab, type: 3}
   victoryClip: {fileID: 8300000, guid: ceee5a2a531ed8a49a75e7d5cc679b3f, type: 3}
@@ -2602,7 +2601,7 @@ GameObject:
   - component: {fileID: 884763898}
   - component: {fileID: 884763897}
   m_Layer: 0
-  m_Name: UserBattleUI
+  m_Name: BattleUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2623,7 +2622,7 @@ MonoBehaviour:
   messageUI: {fileID: 296565609}
   userSelectInterface: {fileID: 18787318}
   userAttackInterface: {fileID: 261136615}
-  currentSplicemon: {fileID: 693487549}
+  playerBagSplicemons: {fileID: 693487549}
   animatorTransition: {fileID: 864937962}
   sourceBattleSound: {fileID: 666707657}
   opponentInfo: {fileID: 808915902817260274}
@@ -3774,7 +3773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969294478928046283, guid: 747aedffe047a6940b9451ae1a2e39cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4.86
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5969294478928046283, guid: 747aedffe047a6940b9451ae1a2e39cd, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4647,8 +4646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 323fcdabfaf4be94da76c8b052de1b89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  current: {fileID: 0}
-  playerInventory: {fileID: 11400000, guid: 5f4a5c1323bb944449b73b3f2832be28, type: 2}
 --- !u!4 &2064500274
 Transform:
   m_ObjectHideFlags: 0
@@ -5045,7 +5042,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5969294478928046283, guid: 747aedffe047a6940b9451ae1a2e39cd, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1.0554237
+      value: -7.9
       objectReference: {fileID: 0}
     - target: {fileID: 5969294478928046283, guid: 747aedffe047a6940b9451ae1a2e39cd, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -47,6 +47,8 @@ namespace Models
         [JsonProperty("power")] [CanBeNull] public int? powerAttack { get; set; }
         [JsonProperty("pp")] public int ppMax { get; set; }
         [JsonProperty("type")] public TypeMove typeMove { get; set; }
+        public int ppCurrent;
+        public string typeName;
     }
     public struct TypeMove
     {
@@ -91,7 +93,7 @@ namespace Models
     
     //==== Stats
 
-    public partial struct Stats
+    public struct Stats
     {
         [JsonProperty("base_stat")] public int baseStatus { get; set; }
         [JsonProperty("effort")] public int effort { get; set; }

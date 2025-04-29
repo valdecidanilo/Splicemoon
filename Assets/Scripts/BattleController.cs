@@ -1,14 +1,17 @@
 using System.Collections;
 using Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using Logger = LenixSO.Logger.Logger;
 using Random = UnityEngine.Random;
+using Stats = Schemas.Stats;
 
 public class BattleController : MonoBehaviour
 {
     public BattleUIManager uIManager;
-    public PokeData opponentPokeData;
-    public PlayerCurrentSplicemon playerPokeData;
+    
+    public PlayerSplicemons playerSplicemons;
+    [SerializeField] private SpliceMon opponentPokeData;
     
     public AudioSource battleSound;
     public AudioClip hitClip;
@@ -35,27 +38,27 @@ public class BattleController : MonoBehaviour
     private void PlayerDeath() => deathPlayer = false;
     private void Start()
     {
-        //StartCoroutine(StartBattle());
+        StartCoroutine(StartBattle());
     }
 
-    private void AttackSlot1()
+    private void AttackSlot1(string url)
     {
-        StartCoroutine(PerformPlayerMove());
+        StartCoroutine(PerformPlayerMove(url));
     }
 
-    private void AttackSlot2()
+    private void AttackSlot2(string url)
     {
-        StartCoroutine(PerformPlayerMove());
+        StartCoroutine(PerformPlayerMove(url));
     }
 
-    private void AttackSlot3()
+    private void AttackSlot3(string url)
     {
-        StartCoroutine(PerformPlayerMove());
+        StartCoroutine(PerformPlayerMove(url));
     }
 
-    private void AttackSlot4()
+    private void AttackSlot4(string url)
     {
-        StartCoroutine(PerformPlayerMove());
+        StartCoroutine(PerformPlayerMove(url));
     }
     private void GetOpponentPokeData(PokeData data)
     {
@@ -70,61 +73,67 @@ public class BattleController : MonoBehaviour
             uIManager.opponentInfo.SetSprite(callback);
         }));
         uIManager.opponentInfo.SetGender(isFemale);
-        opponentPokeData = data;
+        var child = new GameObject(data.NameSpliceMoon);
+        child.transform.SetParent(gameObject.transform);
+        opponentPokeData = child.AddComponent<SpliceMon>();
+        opponentPokeData.Initialize(data, isFemale);
     }
-
     private IEnumerator StartBattle()
     {
+        Logger.Log("Getting... Player Poke Data");
+        yield return playerSplicemons.bagInitialized;
         Logger.Log("Getting Opponent Poke Data");
-        var getOpponent = ApiManager.GetPokeData(Mathf.FloorToInt(Random.Range(0, ApiManager.ValueMax)), GetOpponentPokeData);
+        var getOpponent = ApiManager.GetPokeData(
+            Mathf.FloorToInt(Random.Range(1, ApiManager.ValueMax)), GetOpponentPokeData
+            );
         yield return getOpponent;
         Logger.Log("Starting Battle");
         uIManager.animatorTransition.SetTrigger(StartAnimation);
         yield return new WaitForSeconds(1.5f);
-        yield return ApiManager.GetSound(opponentPokeData.soundUrl.latest, callback => { battleSound.PlayOneShot(callback); });
-        yield return uIManager.Dialogue($"Selvagem {opponentPokeData.NameSpliceMoon.ToUpper()} Apareceu!", 200f, waitForInput: true);
+        yield return ApiManager.GetSound(opponentPokeData.PokeData.soundUrl.latest, callback => { battleSound.PlayOneShot(callback); });
+        yield return uIManager.Dialogue($"Selvagem {opponentPokeData.nameSpliceMon.ToUpper()} Apareceu!", 200f, waitForInput: true);
         yield return new WaitForSeconds(1f);
-        yield return uIManager.Dialogue($"Vai! {playerPokeData.currentSplicemonData.NameSpliceMoon.ToUpper()}!", 200f, waitForInput: false);
-        yield return new WaitForSeconds(1f);
+        yield return uIManager.Dialogue($"Vai! {playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()}!", 200f, waitForInput: false);
+        yield return new WaitForSeconds(.05f);
         // espera a animação da pokebola
         uIManager.userAttackInterface.gameObject.SetActive(false);
         uIManager.userSelectInterface.gameObject.SetActive(true);
-        yield return uIManager.Dialogue($"O que o {playerPokeData.currentSplicemonData.NameSpliceMoon.ToUpper()} fará? ", waitForInput: false);
+        yield return uIManager.Dialogue($"O que o {playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
         uIManager.firstTime = false;
         uIManager.currentIDInterface = 0;
     }
     
-    private IEnumerator PerformPlayerMove()
+    private IEnumerator PerformPlayerMove(string urlMoveAttack)
     {
         uIManager.inBattle = true;
         yield return uIManager.Dialogue(
-            $"{playerPokeData.currentSplicemonData.NameSpliceMoon} usou! \n {playerPokeData.currentSplicemonData.movesAttack[0].move.nameAttack.ToUpper()}", 
+            $"{playerSplicemons.currentSplicemon.nameSpliceMon} usou! \n {playerSplicemons.currentSplicemon.PokeData.movesAttack[0].move.nameAttack.ToUpper()}", 
             waitForInput: false,
             hidenMessage: false);
         yield return new WaitForSeconds(0.5f);
         uIManager.playerInfo.animationSplicemon.SetTrigger(Attack);
         yield return new WaitForSeconds(0.7f);
         uIManager.opponentInfo.animationSplicemon.SetTrigger(Damage);
-        yield return new WaitForSeconds(0.2f);
-        uIManager.opponentInfo.healthBar.ChangeHealth(Random.Range(-10, -20));
+        MoveDetails attack = new();
+        yield return ApiManager.GetPPMoveAttack(urlMoveAttack, callbackAttack => { attack = callbackAttack; });
+        uIManager.opponentInfo.healthBar.ChangeHealth(Stats.CalculateDamage(attack.ppCurrent, playerSplicemons.currentSplicemon.level, playerSplicemons.currentSplicemon.attackStats.currentStat, playerSplicemons.currentSplicemon.defenseStats.currentStat));
 
         battleSound.PlayOneShot(hitClip);
         if(!deathOpponent)
         {
-            
             yield return PerformOpponentMove();
         }
         else
         {
             uIManager.sourceBattleSound.mute = true; 
            
-            yield return ApiManager.GetSound(opponentPokeData.soundUrl.latest, callback => { battleSound.PlayOneShot(callback); });
+            yield return ApiManager.GetSound(opponentPokeData.crySound, callback => { battleSound.PlayOneShot(callback); });
             yield return new WaitForSeconds(0.5f);
             Logger.Log("Opponent Death");
             yield return new WaitForSeconds(0.3f);
-            yield return uIManager.Dialogue($"Selvagem {opponentPokeData.NameSpliceMoon.ToUpper()} Desmaiou!", 200f, waitForInput: true);
+            yield return uIManager.Dialogue($"Selvagem {opponentPokeData.nameSpliceMon.ToUpper()} Desmaiou!", 200f, waitForInput: true);
             battleSound.PlayOneShot(victoryClip);
-            yield return uIManager.Dialogue($"{playerPokeData.currentSplicemonData.NameSpliceMoon.ToUpper()} Ganhou \n 0 EXP. Points!", 200f, waitForInput: true);
+            yield return uIManager.Dialogue($"{playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} Ganhou \n 0 EXP. Points!", 200f, waitForInput: true);
             //se subiu nivel mostrar no texto.
             // se subiu mostrar janelinha do oque foi upado 
             //depois disso transição para o jogo
@@ -141,7 +150,7 @@ public class BattleController : MonoBehaviour
     
         // Mostra mensagem de que o oponente está atacando
         yield return uIManager.Dialogue(
-            $"{opponentPokeData.NameSpliceMoon} usou! \n{opponentPokeData.movesAttack[0].move.nameAttack.ToUpper()}", 
+            $"{opponentPokeData.nameSpliceMon} usou! \n{opponentPokeData.PokeData.movesAttack[0].move.nameAttack.ToUpper()}", 
             waitForInput: false,
             hidenMessage: false);
     
@@ -167,7 +176,7 @@ public class BattleController : MonoBehaviour
             battleSound.PlayOneShot(hitClip);
         
             // Mensagem de derrota
-            yield return uIManager.Dialogue($"{playerPokeData.currentSplicemonData.NameSpliceMoon.ToUpper()} foi derrotado!", waitForInput: true);
+            yield return uIManager.Dialogue($"{playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} foi derrotado!", waitForInput: true);
         
             // Aqui você pode adicionar lógica para trocar de Pokémon ou encerrar a batalha
         }
@@ -178,7 +187,7 @@ public class BattleController : MonoBehaviour
             uIManager.userAttackInterface.gameObject.SetActive(false);
             uIManager.userSelectInterface.gameObject.SetActive(true);
             uIManager.currentIDInterface = 0;
-            yield return uIManager.Dialogue($"O que o {playerPokeData.currentSplicemonData.NameSpliceMoon.ToUpper()} fará? ", waitForInput: false);
+            yield return uIManager.Dialogue($"O que o {playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
         }
     
         uIManager.inBattle = false;

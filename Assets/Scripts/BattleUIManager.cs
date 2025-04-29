@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using LenixSO.Logger;
-using Models;
 using TMPro;
 using UnityEngine;
 using Logger = LenixSO.Logger.Logger;
@@ -12,8 +10,9 @@ public class BattleUIManager : MonoBehaviour
     public RectTransform messageUI;
     public SelectCommandBattle userSelectInterface;
     public SelectCommandBattle userAttackInterface;
-    public PlayerCurrentSplicemon currentSplicemon;
-
+    
+    public PlayerSplicemons playerBagSplicemons;
+    
     public Animator animatorTransition;
     
     public AudioSource sourceBattleSound;
@@ -31,22 +30,11 @@ public class BattleUIManager : MonoBehaviour
     public TMP_Text powerPoint;
     public TMP_Text messageText;
     public List<TMP_Text> textsAttacks;
-    public event Action OnAttackSlot1;
-    public event Action OnAttackSlot2;
-    public event Action OnAttackSlot3;
-    public event Action OnAttackSlot4;
+    public event Action<string> OnAttackSlot1;
+    public event Action<string> OnAttackSlot2;
+    public event Action<string> OnAttackSlot3;
+    public event Action<string> OnAttackSlot4;
     
-    private void OnEnable()
-    {
-        currentSplicemon.OnShowMoveTexts += UpdateTexts;
-        currentSplicemon.OnShowSpliceInfo += UpdatePlayer;
-    }
-
-    private void OnDisable()
-    {
-        currentSplicemon.OnShowMoveTexts -= UpdateTexts;
-        currentSplicemon.OnShowSpliceInfo -= UpdatePlayer;
-    }
     private void Update()
     {
         var horizontal = Input.GetAxisRaw("Horizontal");
@@ -77,16 +65,11 @@ public class BattleUIManager : MonoBehaviour
         if (currentSelected != id)
         {
             currentSelected = id;
-            //Logger.Log($"Selected: {currentSelected}");
             audioSource.Play();
             if (currentIDInterface == 1)
             {
-                typeAttack.SetText($"TYPE/{currentSplicemon.listMoves[id].typeMove.typeAttack}");
-                var powerAttack = currentSplicemon.listMoves[id].powerAttack;
-                powerPoint.SetText(powerAttack != null
-                    //? $"{powerAttack.Value}/{currentSplicemon.listMoves[id].ppMax}"
-                    ? $"{powerAttack.Value}/{powerAttack.Value}"
-                    : $"0/0");
+                typeAttack.SetText($"TYPE/{playerBagSplicemons.currentSplicemon.itensMove[id].typeName}");
+                powerPoint.SetText($"{playerBagSplicemons.currentSplicemon.itensMove[id].ppCurrent}/{playerBagSplicemons.currentSplicemon.itensMove[id].ppMax}");
             }
         }
         if (!inBattle && !firstTime && !Input.GetKeyDown(KeyCode.KeypadEnter) && !Input.GetKeyDown(KeyCode.Return)) return;
@@ -108,7 +91,7 @@ public class BattleUIManager : MonoBehaviour
         switch (id)
         {
             case 0:
-                powerPoint.SetText($"{currentSplicemon.listMoves[id].powerAttack}/{currentSplicemon.listMoves[0].powerAttack}");
+                powerPoint.SetText($"{playerBagSplicemons.currentSplicemon.itensMove[id].powerAttack}/{playerBagSplicemons.currentSplicemon.itensMove[0].powerAttack}");
                 userAttackInterface.gameObject.SetActive(true);
                 userSelectInterface.gameObject.SetActive(false);
                 currentIDInterface = 1;
@@ -127,10 +110,10 @@ public class BattleUIManager : MonoBehaviour
 
     private void UpdatePlayer()
     {
-        playerInfo.SetName(currentSplicemon.currentSplicemonData.NameSpliceMoon);
+        playerInfo.SetName(playerBagSplicemons.currentSplicemon.nameSpliceMon);
         playerInfo.SetLevel(1);
         playerInfo.SetGender(false);
-        StartCoroutine(ApiManager.GetSprite(currentSplicemon.currentSplicemonData.sprites.backDefault, sprite =>
+        StartCoroutine(ApiManager.GetSprite(playerBagSplicemons.currentSplicemon.backSprite, sprite =>
         {
             playerInfo.SetSprite(sprite);
         }));
@@ -140,7 +123,7 @@ public class BattleUIManager : MonoBehaviour
         foreach (var txt in textsAttacks)
             txt.SetText("-");
         for (var i = 0; i < textsAttacks.Count; i++)
-            textsAttacks[i].SetText($"{currentSplicemon.listMoves[i].nameMove}");
+            textsAttacks[i].SetText($"{playerBagSplicemons.currentSplicemon.itensMove[i].nameMove}");
     }
     private void HandlerAttackInterface(int id)
     {
@@ -149,19 +132,19 @@ public class BattleUIManager : MonoBehaviour
         {
             case 0:
                 Logger.Log("Apertou no 1");
-                OnAttackSlot1?.Invoke();
+                OnAttackSlot1?.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
             case 1:
                 Logger.Log("Apertou no 2");
-                OnAttackSlot2?.Invoke();
+                OnAttackSlot2?.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
             case 2:
                 Logger.Log("Apertou no 3");
-                OnAttackSlot3.Invoke();
+                OnAttackSlot3.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
             case 3:
                 Logger.Log("Apertou no 4");
-                OnAttackSlot4?.Invoke();
+                OnAttackSlot4?.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
         }
     }
