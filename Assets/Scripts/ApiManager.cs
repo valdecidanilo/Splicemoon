@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using LenixSO.Logger;
 using Models;
 using Newtonsoft.Json;
@@ -56,27 +57,28 @@ public class ApiManager : MonoBehaviour
     
     public static IEnumerator GetMoveDetails(List<string> urls, Action<List<MoveDetails>> callback)
     {
+        var fourUrls = urls.Take(4).ToList();
         var moveDetailsList = new List<MoveDetails>();
         for (var i = 0; i < 4; i++)
         {
-            if (string.IsNullOrEmpty(urls[i]))
+            if (string.IsNullOrEmpty(fourUrls[i]))
                 continue;
             
-            var uwr = UnityWebRequest.Get(urls[i]);
+            var uwr = UnityWebRequest.Get(fourUrls[i]);
             yield return uwr.SendWebRequest();
         
             if (uwr.result == UnityWebRequest.Result.Success)
             {
-                Logger.Log($"Getting poke details [raw] { uwr.downloadHandler.text }");
+                Logger.LogWarning($"Getting poke details [raw] { uwr.downloadHandler.text }");
                 var moveDetails = JsonConvert.DeserializeObject<MoveDetails>(uwr.downloadHandler.text);
                 moveDetailsList.Add(moveDetails);
             }
             else
             {
-                Logger.LogError($"Error ao pegar detalhes do movimento: {urls}", LogFlags.ERROR);
+                Logger.LogError($"Error ao pegar detalhes do movimento: {fourUrls}", LogFlags.ERROR);
             }
         }
-    
+        
         callback.Invoke(moveDetailsList);
     }
     public static IEnumerator GetSound(string url, Action<AudioClip> callback)
@@ -102,12 +104,14 @@ public class ApiManager : MonoBehaviour
     }
     public static IEnumerator GetPPMoveAttack(string url, Action<MoveDetails> callback)
     {
+        
         var uwr = UnityWebRequest.Get(url);
         yield return uwr.SendWebRequest();
         
         if (uwr.result == UnityWebRequest.Result.Success)
         {
             var moveDetails = JsonConvert.DeserializeObject<MoveDetails>(uwr.downloadHandler.text);
+            moveDetails.ppCurrent = moveDetails.ppMax;
             callback.Invoke(moveDetails);
         }
         else

@@ -42,8 +42,21 @@ namespace Schemas
 
             // Dano final
             //var finalDamage = baseDamage * modifiers;
-            Logger.LogWarning($"Damage: {baseDamage}");
             return Mathf.FloorToInt(baseDamage);
+        }
+        public static int CalculateErraticExp(int level)
+        {
+            if (level <= 50) return Mathf.FloorToInt(Mathf.Pow(level, 3) * (100 - level) / 50f);
+            else if (level <= 68) return Mathf.FloorToInt(Mathf.Pow(level, 3) * (150 - level) / 100f);
+            else if (level <= 98) return Mathf.FloorToInt(Mathf.Pow(level, 3) * (1911 - 10 * level) / 500f);
+            else return Mathf.FloorToInt(Mathf.Pow(level, 3) * (160 - level) / 100f);
+        }
+
+        public static int CalculateFluctuatingExp(int level)
+        {
+            if (level <= 15) return Mathf.FloorToInt(Mathf.Pow(level, 3) * (24 + ((level + 1) / 3)) / 50f);
+            else if (level <= 36) return Mathf.FloorToInt(Mathf.Pow(level, 3) * (14 + level) / 50f);
+            else return Mathf.FloorToInt(Mathf.Pow(level, 3) * (32 + (level / 2)) / 50f);
         }
     }
 }

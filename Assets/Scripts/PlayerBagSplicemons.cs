@@ -1,32 +1,40 @@
 using System.Collections.Generic;
+using System.Linq;
 using Models;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Logger = LenixSO.Logger.Logger;
 
-public class PlayerSplicemons : MonoBehaviour
+public class PlayerBagSplicemons : MonoBehaviour
 {
     public SpliceMon currentSplicemon;
     public List<SpliceMon> splicemons = new ();
+    
     public bool bagInitialized = false;
+    
+    [Header("Test")]
+    public int myPokemonTest = 1;
+    public int level = 1;
     private void Awake()
     {
-        StartCoroutine(ApiManager.GetPokeData(1, SetCurrentSplicemon));
+        StartCoroutine(ApiManager.GetPokeData(myPokemonTest, SetCurrentSplicemon));
     }
     private void SetCurrentSplicemon(PokeData pokeData)
     {
         var child = new GameObject(pokeData.NameSpliceMoon);
         child.transform.SetParent(gameObject.transform);
         currentSplicemon = child.AddComponent<SpliceMon>();
+        currentSplicemon.level = level;
         currentSplicemon.Initialize(pokeData);
         bagInitialized = true;
-        StartCoroutine(ApiManager.GetMoveDetails(currentSplicemon.moveAttack, callback =>
+        var fourfirst = currentSplicemon.moveAttack.Take(4).ToList();
+        StartCoroutine(ApiManager.GetMoveDetails(fourfirst, moveAttackList =>
         {
+            
             for (var i = 0; i < 4; i++)
             {
-                Logger.Log($"move : {callback[i].nameMove}");
-                currentSplicemon.itensMove.Add(callback[i]);
+                moveAttackList[i].ppCurrent = moveAttackList[i].ppMax;
             }
+            currentSplicemon.itensMove = new List<MoveDetails>(moveAttackList);
         }));
     }
 }

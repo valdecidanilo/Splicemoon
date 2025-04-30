@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
 
@@ -40,7 +41,8 @@ namespace Models
         [JsonProperty("name")] public string nameAttack { get; set; }
         [JsonProperty("url")] public string url { get; set; }
     }
-    public struct MoveDetails
+    [Serializable]
+    public class MoveDetails
     {
         [JsonProperty("accuracy")] [CanBeNull] public int? accuracy { get; set; }
         [JsonProperty("name")] public string nameMove { get; set; }
@@ -48,7 +50,6 @@ namespace Models
         [JsonProperty("pp")] public int ppMax { get; set; }
         [JsonProperty("type")] public TypeMove typeMove { get; set; }
         public int ppCurrent;
-        public string typeName;
     }
     public struct TypeMove
     {

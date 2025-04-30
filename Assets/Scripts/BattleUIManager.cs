@@ -3,17 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Logger = LenixSO.Logger.Logger;
 
 public class BattleUIManager : MonoBehaviour
 {
+    private static readonly int Start = Animator.StringToHash("Start");
+    public GameObject canvasBattleUI;
     public RectTransform messageUI;
     public SelectCommandBattle userSelectInterface;
     public SelectCommandBattle userAttackInterface;
     
-    public PlayerSplicemons playerBagSplicemons;
+    public PlayerBagSplicemons playerBagBagSplicemons;
     
+    public Animator animatorCallGround;
     public Animator animatorTransition;
+    public Animator animatorBoardOpponent;
+    public Animator animatorBoardPlayer;
     
     public AudioSource sourceBattleSound;
     
@@ -62,14 +68,17 @@ public class BattleUIManager : MonoBehaviour
     
     private void Selected(int id)
     {
+        if(currentIDInterface == -1) return;
+        if(currentSelected == 0 && currentIDInterface == 1 && typeAttack.text != $"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}")
+            typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}");
         if (currentSelected != id)
         {
             currentSelected = id;
             audioSource.Play();
             if (currentIDInterface == 1)
             {
-                typeAttack.SetText($"TYPE/{playerBagSplicemons.currentSplicemon.itensMove[id].typeName}");
-                powerPoint.SetText($"{playerBagSplicemons.currentSplicemon.itensMove[id].ppCurrent}/{playerBagSplicemons.currentSplicemon.itensMove[id].ppMax}");
+                typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}");
+                powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppCurrent}/{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppMax}");
             }
         }
         if (!inBattle && !firstTime && !Input.GetKeyDown(KeyCode.KeypadEnter) && !Input.GetKeyDown(KeyCode.Return)) return;
@@ -91,7 +100,7 @@ public class BattleUIManager : MonoBehaviour
         switch (id)
         {
             case 0:
-                powerPoint.SetText($"{playerBagSplicemons.currentSplicemon.itensMove[id].powerAttack}/{playerBagSplicemons.currentSplicemon.itensMove[0].powerAttack}");
+                powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.itensMove[id].powerAttack}/{playerBagBagSplicemons.currentSplicemon.itensMove[0].powerAttack}");
                 userAttackInterface.gameObject.SetActive(true);
                 userSelectInterface.gameObject.SetActive(false);
                 currentIDInterface = 1;
@@ -108,22 +117,29 @@ public class BattleUIManager : MonoBehaviour
         }
     }
 
-    private void UpdatePlayer()
+    public void UpdatePlayer()
     {
-        playerInfo.SetName(playerBagSplicemons.currentSplicemon.nameSpliceMon);
-        playerInfo.SetLevel(1);
+        playerInfo.SetName(playerBagBagSplicemons.currentSplicemon.nameSpliceMon);
+        playerInfo.SetLevel(playerBagBagSplicemons.currentSplicemon.level);
+        playerInfo.expBar.SetMaxExp(playerBagBagSplicemons.currentSplicemon.experienceMax);
+        playerInfo.expBar.SetExp(playerBagBagSplicemons.currentSplicemon.experience);
+        playerInfo.healthBar.SetMaxHealth(playerBagBagSplicemons.currentSplicemon.hpStats.currentStat);
+        playerInfo.healthBar.SetHealth(playerBagBagSplicemons.currentSplicemon.hpStats.currentStat);
         playerInfo.SetGender(false);
-        StartCoroutine(ApiManager.GetSprite(playerBagSplicemons.currentSplicemon.backSprite, sprite =>
+        StartCoroutine(ApiManager.GetSprite(playerBagBagSplicemons.currentSplicemon.backSprite, sprite =>
         {
             playerInfo.SetSprite(sprite);
         }));
+        UpdateTexts();
     }
     private void UpdateTexts()
     {
         foreach (var txt in textsAttacks)
             txt.SetText("-");
         for (var i = 0; i < textsAttacks.Count; i++)
-            textsAttacks[i].SetText($"{playerBagSplicemons.currentSplicemon.itensMove[i].nameMove}");
+        {
+            textsAttacks[i].SetText($"{playerBagBagSplicemons.currentSplicemon.PokeData.movesAttack[i].move.nameAttack}");
+        }
     }
     private void HandlerAttackInterface(int id)
     {
@@ -132,19 +148,19 @@ public class BattleUIManager : MonoBehaviour
         {
             case 0:
                 Logger.Log("Apertou no 1");
-                OnAttackSlot1?.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
+                OnAttackSlot1?.Invoke(playerBagBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
             case 1:
                 Logger.Log("Apertou no 2");
-                OnAttackSlot2?.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
+                OnAttackSlot2?.Invoke(playerBagBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
             case 2:
                 Logger.Log("Apertou no 3");
-                OnAttackSlot3.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
+                OnAttackSlot3.Invoke(playerBagBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
             case 3:
                 Logger.Log("Apertou no 4");
-                OnAttackSlot4?.Invoke(playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
+                OnAttackSlot4?.Invoke(playerBagBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.url);
                 break;
         }
     }
@@ -185,5 +201,14 @@ public class BattleUIManager : MonoBehaviour
         }
     
         onComplete?.Invoke();
+    }
+
+    public IEnumerator Transition(Action<bool> onComplete)
+    {
+        sourceBattleSound.Play();
+        animatorTransition.SetTrigger(Start);
+        yield return new WaitForSeconds(2.5f);
+    
+        onComplete?.Invoke(true);
     }
 }

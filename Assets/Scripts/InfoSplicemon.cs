@@ -10,6 +10,7 @@ public class InfoSplicemon : MonoBehaviour
     [SerializeField] private Image genderSplicemon;
     [SerializeField] private Sprite[] genderSprites;
     [SerializeField] private Image spriteSplicemon;
+    public ExpBar expBar;
     public HealthBar healthBar;
     public Animator animationSplicemon;
     
@@ -17,5 +18,4 @@ public class InfoSplicemon : MonoBehaviour
     public void SetLevel(int currentLevel) => levelSplicemon.text = $"Lv{currentLevel}";
     public void SetGender(bool isFemale) => genderSplicemon.sprite = isFemale ? genderSprites[1] : genderSprites[0];
     public void SetSprite(Sprite sprite) => spriteSplicemon.sprite = sprite;
-    
 }

@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using Models;
+using Player;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Logger = LenixSO.Logger.Logger;
 using Random = UnityEngine.Random;
 using Stats = Schemas.Stats;
@@ -10,9 +13,9 @@ public class BattleController : MonoBehaviour
 {
     public BattleUIManager uIManager;
     
-    public PlayerSplicemons playerSplicemons;
+    [FormerlySerializedAs("playerSplicemons")] public PlayerBagSplicemons playerBagSplicemons;
     [SerializeField] private SpliceMon opponentPokeData;
-    
+    public PlayerMovement playerMovement;
     public AudioSource battleSound;
     public AudioClip hitClip;
     public AudioClip victoryClip;
@@ -36,9 +39,10 @@ public class BattleController : MonoBehaviour
 
     private void OpponentDeath() => deathOpponent = true;
     private void PlayerDeath() => deathPlayer = false;
-    private void Start()
+    public void StartBattle()
     {
-        StartCoroutine(StartBattle());
+        uIManager.canvasBattleUI.SetActive(true);
+        StartCoroutine(StartBattleStep());
     }
 
     private void AttackSlot1(string url)
@@ -63,8 +67,8 @@ public class BattleController : MonoBehaviour
     private void GetOpponentPokeData(PokeData data)
     {
         uIManager.opponentInfo.SetName(data.NameSpliceMoon);
-        uIManager.opponentInfo.SetLevel(1);
-        
+        var currentLevel = Random.Range(1, 6);
+        uIManager.opponentInfo.SetLevel(currentLevel);
         var isFemale = false;
         if (data.sprites.frontFemale != null) isFemale = Random.Range(0,100) <= 40;
         Logger.Log(isFemale ? data.sprites.backFemale : data.sprites.backDefault);
@@ -77,28 +81,42 @@ public class BattleController : MonoBehaviour
         child.transform.SetParent(gameObject.transform);
         opponentPokeData = child.AddComponent<SpliceMon>();
         opponentPokeData.Initialize(data, isFemale);
+        opponentPokeData.level = currentLevel;
+        uIManager.opponentInfo.healthBar.SetHealth(opponentPokeData.hpStats.currentStat);
+        uIManager.opponentInfo.healthBar.SetMaxHealth(opponentPokeData.hpStats.baseStat);
     }
-    private IEnumerator StartBattle()
+    private IEnumerator StartBattleStep()
     {
+        
+        yield return new WaitForSeconds(0.7f);
         Logger.Log("Getting... Player Poke Data");
-        yield return playerSplicemons.bagInitialized;
+        while (!playerBagSplicemons.bagInitialized)
+        {
+            yield return new WaitForSeconds(0.5f);
+        }
+        uIManager.UpdatePlayer();
+        if(!playerBagSplicemons.bagInitialized) yield break;
         Logger.Log("Getting Opponent Poke Data");
         var getOpponent = ApiManager.GetPokeData(
             Mathf.FloorToInt(Random.Range(1, ApiManager.ValueMax)), GetOpponentPokeData
             );
         yield return getOpponent;
         Logger.Log("Starting Battle");
-        uIManager.animatorTransition.SetTrigger(StartAnimation);
+        uIManager.animatorCallGround.SetTrigger(StartAnimation);
         yield return new WaitForSeconds(1.5f);
+        uIManager.animatorBoardOpponent.SetTrigger(StartAnimation);
         yield return ApiManager.GetSound(opponentPokeData.PokeData.soundUrl.latest, callback => { battleSound.PlayOneShot(callback); });
-        yield return uIManager.Dialogue($"Selvagem {opponentPokeData.nameSpliceMon.ToUpper()} Apareceu!", 200f, waitForInput: true);
+        yield return uIManager.Dialogue($"{opponentPokeData.nameSpliceMon.ToUpper()} Selvagem Apareceu!", 200f, waitForInput: true);
         yield return new WaitForSeconds(1f);
-        yield return uIManager.Dialogue($"Vai! {playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()}!", 200f, waitForInput: false);
-        yield return new WaitForSeconds(.05f);
+        yield return uIManager.Dialogue($"Vai! {playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()}!", 200f, waitForInput: false);
+        yield return new WaitForSeconds(.5f);
+        uIManager.animatorCallGround.SetTrigger(StartAnimation);
+        yield return new WaitForSeconds(1.06f);
+        uIManager.animatorBoardPlayer.SetTrigger(StartAnimation);
         // espera a animação da pokebola
         uIManager.userAttackInterface.gameObject.SetActive(false);
         uIManager.userSelectInterface.gameObject.SetActive(true);
-        yield return uIManager.Dialogue($"O que o {playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
+        yield return uIManager.Dialogue($"O que o {playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
         uIManager.firstTime = false;
         uIManager.currentIDInterface = 0;
     }
@@ -107,7 +125,7 @@ public class BattleController : MonoBehaviour
     {
         uIManager.inBattle = true;
         yield return uIManager.Dialogue(
-            $"{playerSplicemons.currentSplicemon.nameSpliceMon} usou! \n {playerSplicemons.currentSplicemon.PokeData.movesAttack[0].move.nameAttack.ToUpper()}", 
+            $"{playerBagSplicemons.currentSplicemon.nameSpliceMon} usou! \n {playerBagSplicemons.currentSplicemon.PokeData.movesAttack[0].move.nameAttack.ToUpper()}", 
             waitForInput: false,
             hidenMessage: false);
         yield return new WaitForSeconds(0.5f);
@@ -116,30 +134,46 @@ public class BattleController : MonoBehaviour
         uIManager.opponentInfo.animationSplicemon.SetTrigger(Damage);
         MoveDetails attack = new();
         yield return ApiManager.GetPPMoveAttack(urlMoveAttack, callbackAttack => { attack = callbackAttack; });
-        uIManager.opponentInfo.healthBar.ChangeHealth(Stats.CalculateDamage(attack.ppCurrent, playerSplicemons.currentSplicemon.level, playerSplicemons.currentSplicemon.attackStats.currentStat, playerSplicemons.currentSplicemon.defenseStats.currentStat));
-
+        var damage = Stats.CalculateDamage(attack.ppCurrent, 
+            playerBagSplicemons.currentSplicemon.level, 
+            playerBagSplicemons.currentSplicemon.attackStats.currentStat, 
+            opponentPokeData.defenseStats.currentStat);
+        uIManager.opponentInfo.healthBar.ChangeHealth(-damage);
         battleSound.PlayOneShot(hitClip);
         if(!deathOpponent)
-        {
             yield return PerformOpponentMove();
-        }
         else
         {
             uIManager.sourceBattleSound.mute = true; 
            
-            yield return ApiManager.GetSound(opponentPokeData.crySound, callback => { battleSound.PlayOneShot(callback); });
+            yield return ApiManager.GetSound(opponentPokeData.crySound, callback =>
+            {
+                battleSound.PlayOneShot(callback);
+            });
             yield return new WaitForSeconds(0.5f);
             Logger.Log("Opponent Death");
-            yield return new WaitForSeconds(0.3f);
-            yield return uIManager.Dialogue($"Selvagem {opponentPokeData.nameSpliceMon.ToUpper()} Desmaiou!", 200f, waitForInput: true);
+            battleSound.PlayOneShot(hitClip);
+            yield return new WaitForSeconds(0.4f);
+            uIManager.opponentInfo.animationSplicemon.SetTrigger(Death);
+            yield return new WaitForSeconds(0.4f);
             battleSound.PlayOneShot(victoryClip);
-            yield return uIManager.Dialogue($"{playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} Ganhou \n 0 EXP. Points!", 200f, waitForInput: true);
+            yield return uIManager.Dialogue($"{opponentPokeData.nameSpliceMon.ToUpper()} Selvagem Desmaiou!",
+                200f, waitForInput: true);
+            var exp = playerBagSplicemons.currentSplicemon.GainExperience(opponentPokeData.level);
+            uIManager.playerInfo.expBar.SetExp(exp);
+            yield return uIManager.Dialogue(
+                $"{playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} Ganhou \n {exp} pontos de EXP!",
+                200f, waitForInput: true);
             //se subiu nivel mostrar no texto.
             // se subiu mostrar janelinha do oque foi upado 
             //depois disso transição para o jogo
-            
-            uIManager.opponentInfo.animationSplicemon.SetTrigger(Death);
-            battleSound.PlayOneShot(hitClip);
+            uIManager.userSelectInterface.gameObject.SetActive(true);
+            uIManager.userAttackInterface.gameObject.SetActive(false);
+            uIManager.opponentInfo.animationSplicemon.Play("Idle");
+            Destroy(opponentPokeData.gameObject);
+            uIManager.currentIDInterface = -1;
+            uIManager.canvasBattleUI.SetActive(false);
+            playerMovement.inBattle = false;
         }
     }
 
@@ -161,14 +195,17 @@ public class BattleController : MonoBehaviour
         // Animação de dano do jogador
         uIManager.playerInfo.animationSplicemon.SetTrigger(Damage);
         yield return new WaitForSeconds(0.2f);
-    
+        MoveDetails attack = new();
         // Aplica dano ao jogador
-        int damage = Random.Range(-10, -20);
-        uIManager.playerInfo.healthBar.ChangeHealth(damage);
+        var damage = Stats.CalculateDamage(attack.ppCurrent, 
+            opponentPokeData.level, 
+            opponentPokeData.attackStats.currentStat, 
+            playerBagSplicemons.currentSplicemon.defenseStats.currentStat);
+        uIManager.playerInfo.healthBar.ChangeHealth(-damage);
         battleSound.PlayOneShot(hitClip);
     
         // Verifica se o jogador foi derrotado
-        if (deathOpponent)
+        if (deathPlayer)
         {
             // Animação de morte do Pokémon do jogador
             yield return new WaitForSeconds(0.5f);
@@ -176,8 +213,7 @@ public class BattleController : MonoBehaviour
             battleSound.PlayOneShot(hitClip);
         
             // Mensagem de derrota
-            yield return uIManager.Dialogue($"{playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} foi derrotado!", waitForInput: true);
-        
+            yield return uIManager.Dialogue($"{playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} foi derrotado!", waitForInput: true);
             // Aqui você pode adicionar lógica para trocar de Pokémon ou encerrar a batalha
         }
         else
@@ -187,7 +223,7 @@ public class BattleController : MonoBehaviour
             uIManager.userAttackInterface.gameObject.SetActive(false);
             uIManager.userSelectInterface.gameObject.SetActive(true);
             uIManager.currentIDInterface = 0;
-            yield return uIManager.Dialogue($"O que o {playerSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
+            yield return uIManager.Dialogue($"O que o {playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
         }
     
         uIManager.inBattle = false;
