@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using Inventory;
 using Models;
 using UnityEngine;
-using Logger = LenixSO.Logger.Logger;
 
 public class PlayerBagSplicemons : MonoBehaviour
 {
     public SpliceMon currentSplicemon;
     public List<SpliceMon> splicemons = new ();
-    
     public bool bagInitialized = false;
     
     [Header("Test")]
@@ -20,6 +19,7 @@ public class PlayerBagSplicemons : MonoBehaviour
     }
     private void SetCurrentSplicemon(PokeData pokeData)
     {
+
         var child = new GameObject(pokeData.NameSpliceMoon);
         child.transform.SetParent(gameObject.transform);
         currentSplicemon = child.AddComponent<SpliceMon>();

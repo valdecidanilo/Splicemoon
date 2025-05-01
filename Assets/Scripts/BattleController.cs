@@ -5,9 +5,9 @@ using Player;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Utils;
 using Logger = LenixSO.Logger.Logger;
 using Random = UnityEngine.Random;
-using Stats = Schemas.Stats;
 
 public class BattleController : MonoBehaviour
 {
@@ -134,7 +134,7 @@ public class BattleController : MonoBehaviour
         uIManager.opponentInfo.animationSplicemon.SetTrigger(Damage);
         MoveDetails attack = new();
         yield return ApiManager.GetPPMoveAttack(urlMoveAttack, callbackAttack => { attack = callbackAttack; });
-        var damage = Stats.CalculateDamage(attack.ppCurrent, 
+        var damage = Maths.CalculateDamage(attack.ppCurrent, 
             playerBagSplicemons.currentSplicemon.level, 
             playerBagSplicemons.currentSplicemon.attackStats.currentStat, 
             opponentPokeData.defenseStats.currentStat);
@@ -197,7 +197,7 @@ public class BattleController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         MoveDetails attack = new();
         // Aplica dano ao jogador
-        var damage = Stats.CalculateDamage(attack.ppCurrent, 
+        var damage = Maths.CalculateDamage(attack.ppCurrent, 
             opponentPokeData.level, 
             opponentPokeData.attackStats.currentStat, 
             playerBagSplicemons.currentSplicemon.defenseStats.currentStat);

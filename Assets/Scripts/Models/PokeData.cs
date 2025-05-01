@@ -99,6 +99,8 @@ namespace Models
         [JsonProperty("base_stat")] public int baseStatus { get; set; }
         [JsonProperty("effort")] public int effort { get; set; }
         [JsonProperty("stat")] public Stat status { get; set; }
+        public string name { get; set; }
+        public int iv { get; set; }
     }
 
     public struct Stat

@@ -1,16 +1,18 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Models;
 using Schemas;
 using UnityEngine;
 using Utils;
-using Random = UnityEngine.Random;
+using Stats = Models.Stats;
 
-namespace Models
+namespace Inventory
 {
-    public class SpliceMon : MonoBehaviour
-    {
-        public PokeData PokeData;
-
+    [CreateAssetMenu(fileName = "New Splicemon Object", menuName = "Inventory System/Item/Splicemon")]
+    public class SplicemonObject : ItemObject {
+        public void Awake(){
+            type = ItemType.Splicemon;
+        }
         [Header("Identity")] public int id;
         public string nameSpliceMon;
         public bool isFemale;
@@ -22,7 +24,8 @@ namespace Models
         public int experienceMax;
         public GrowthRate growthRate;
 
-        [Header("Sprites")] public string frontSprite;
+        [Header("Sprites")] 
+        public string frontSprite;
         public string backSprite;
 
         [Header("Audio")] public string crySound;
@@ -66,7 +69,6 @@ namespace Models
 
         public void UpdateSliceMon(PokeData pokeData, bool isFemale)
         {
-            PokeData = pokeData;
             id = pokeData.id;
             nameSpliceMon = pokeData.NameSpliceMoon;
             baseExperience = pokeData.baseExperience;

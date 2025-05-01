@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4411c6cc938e01d46b8ce77104933ee2, type: 3}
+  m_Name: New Splicemon Object
+  m_EditorClassIdentifier: 
+  type: 1
+  icon: {fileID: 0}
+  nameItem: 
+  description: 
+  amount: 0
+  price: 0
+  IAP: 0
+  id: 106
+  nameSpliceMon: hitmonlee1
+  isFemale: 0
+  nature: 
+  level: 1
+  levelMax: 100
+  baseExperience: 159
+  experience: 0
+  experienceMax: 0
+  growthRate: 0
+  frontSprite: 
+  backSprite: 
+  crySound: 
+  hpStats:
+    name: 
+    iv: 0
+    baseStat: 0
+    effort: 0
+    currentStat: 0
+  attackStats:
+    name: 
+    iv: 0
+    baseStat: 0
+    effort: 0
+    currentStat: 0
+  defenseStats:
+    name: 
+    iv: 0
+    baseStat: 0
+    effort: 0
+    currentStat: 0
+  specialAttackStats:
+    name: 
+    iv: 0
+    baseStat: 0
+    effort: 0
+    currentStat: 0
+  specialDefenseStats:
+    name: 
+    iv: 0
+    baseStat: 0
+    effort: 0
+    currentStat: 0
+  speedStats:
+    name: 
+    iv: 0
+    baseStat: 0
+    effort: 0
+    currentStat: 0
+  moveAttack: []
+  itensMove: []
