@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,72 +5,147 @@ namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
+        // Configurações
         public float moveSpeed = 3f;
-        private Vector2 lastDirection = Vector2.down;
+        [SerializeField] private float turnDelay = 0.15f; // Ajuste esse valor no Inspector
         
+        private Vector2 currentDirection;
+        private Vector2 inputBuffer;
+        private bool isMoving;
+        private bool isInBattle;
+        private bool isWaitingToMove;
+        
+        [Header("References")]
         [SerializeField] private PlayerAnimatorController animatorController;
-
+        
         [Header("Grid Settings")]
         public float gridSize = 0.16f;
-
-        public bool inBattle;
-        public bool isMoving;
-        private Vector2 input;
-        private Vector3 targetPos;
+        [SerializeField] private float radiusGrass = 0.16f;
+        [SerializeField] private float radius = 0.16f;
+        public float originY = 0.2f;
 
         private void Update()
         {
-            if (!isMoving && !inBattle)
+            if (isMoving || isInBattle) return;
+
+            // Captura input
+            inputBuffer.x = Input.GetAxisRaw("Horizontal");
+            inputBuffer.y = Input.GetAxisRaw("Vertical");
+
+            // Bloqueia diagonais
+            if (inputBuffer.x != 0) inputBuffer.y = 0;
+
+            if (inputBuffer != Vector2.zero)
             {
-                input.x = Input.GetAxisRaw("Horizontal");
-                input.y = Input.GetAxisRaw("Vertical");
-
-                if (input.x != 0) input.y = 0;
-
-                if (input != Vector2.zero)
+                // Se a direção mudou OU é o primeiro input
+                if (inputBuffer != currentDirection || !isWaitingToMove)
                 {
-                    var direction = new Vector3(input.x, input.y, 0f).normalized;
-                    targetPos = transform.position + direction * gridSize;
-                    animatorController.spriteRenderer.flipX = direction.x switch
-                    {
-                        > 0 => false,
-                        < 0 => true,
-                        _ => animatorController.spriteRenderer.flipX
-                    };
-                    if (IsWalkable(targetPos))
-                        StartCoroutine(Move(targetPos));
+                    currentDirection = inputBuffer;
+                    StartCoroutine(HandleTurn());
                 }
-                animatorController.SetMoveDirection(input, input != Vector2.zero);
+                else
+                {
+                    if (inputBuffer == currentDirection && !isWaitingToMove)
+                    {
+                        MoveToTarget();
+                    }
+                }
+            }
+            else
+            {
+                // Resetar estados quando não há input
+                isWaitingToMove = false;
+                animatorController.SetMoveDirection(Vector2.zero, false);
             }
         }
 
-        private IEnumerator Move(Vector3 destination)
+        private IEnumerator HandleTurn()
+        {
+            // Executa a virada
+            animatorController.SetMoveDirection(currentDirection, false);
+            UpdateSpriteFlip();
+            
+            // Marca que está esperando para mover
+            isWaitingToMove = true;
+            
+            // Espera o delay configurado
+            yield return new WaitForSeconds(turnDelay);
+            isWaitingToMove = false;
+            // Se após o delay ainda está pressionando a mesma direção
+            if (inputBuffer == currentDirection && !isMoving)
+            {
+                MoveToTarget();
+            }
+        }
+
+        private void UpdateSpriteFlip()
+        {
+            if (currentDirection.x != 0)
+            {
+                animatorController.spriteRenderer.flipX = currentDirection.x < 0;
+            }
+        }
+
+        private void MoveToTarget()
+        {
+            Vector3 targetPos = transform.position + (Vector3)currentDirection * gridSize;
+            
+            if (IsWalkable(targetPos))
+            {
+                StartCoroutine(ExecuteMovement(targetPos));
+                animatorController.SetMoveDirection(currentDirection, true);
+            }
+        }
+
+        private IEnumerator ExecuteMovement(Vector3 destination)
         {
             isMoving = true;
-
-            while ((destination - transform.position).sqrMagnitude > Mathf.Epsilon)
+            
+            while (Vector3.Distance(transform.position, destination) > 0.001f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(
+                    transform.position, 
+                    destination, 
+                    moveSpeed * Time.deltaTime
+                );
+                
+                UpdateGrassDetection();
                 yield return null;
             }
 
             transform.position = destination;
             isMoving = false;
-
-            var battleZone = GetComponentInChildren<BattleTriggerZone>();
-            if (battleZone != null)
-                battleZone.TryStartBattle(encounterBattle =>
-                {
-                    if(encounterBattle) inBattle = true;
-                });
-            yield return new WaitForEndOfFrame();
-
+            
+            CheckForBattles();
             animatorController.SetMoveDirection(Vector2.zero, false);
+        }
+
+        private void UpdateGrassDetection()
+        {
+            var origin = new Vector2(transform.position.x, transform.position.y - originY);
+            GrassManager.UpdateNearbyGrass(origin, radius, radiusGrass);
+        }
+
+        private void CheckForBattles()
+        {
+            var battleZone = GetComponentInChildren<BattleTriggerZone>();
+            battleZone?.TryStartBattle(encounter => isInBattle = encounter);
         }
 
         private bool IsWalkable(Vector3 targetPos)
         {
-            return true;
+            return true; // Implemente sua verificação de colisão
         }
+
+        #if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            var origin = new Vector2(transform.position.x, transform.position.y - originY);
+            Gizmos.DrawWireSphere(origin, radius);
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(origin, radiusGrass);
+        }
+        #endif
     }
 }
