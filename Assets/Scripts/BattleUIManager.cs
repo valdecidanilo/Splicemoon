@@ -199,10 +199,9 @@ public class BattleUIManager : MonoBehaviour
             messageText.text += message[i];
             yield return new WaitForSeconds(delay);
         }
-    
+        
         onComplete?.Invoke();
     }
-
     public IEnumerator Transition(Action<bool> onComplete)
     {
         sourceBattleSound.Play();

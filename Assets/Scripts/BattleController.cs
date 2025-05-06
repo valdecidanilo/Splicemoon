@@ -173,7 +173,7 @@ public class BattleController : MonoBehaviour
             Destroy(opponentPokeData.gameObject);
             uIManager.currentIDInterface = -1;
             uIManager.canvasBattleUI.SetActive(false);
-            playerMovement.inBattle = false;
+            //playerMovement.inBattle = false;
         }
     }
 
