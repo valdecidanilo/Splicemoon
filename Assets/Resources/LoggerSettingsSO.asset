@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LoggerSettingsSO
   m_EditorClassIdentifier: 
   restoreLogsOnChange: 0
-  ignoreLoggerOnStackTrace: 0
+  ignoreLoggerOnStackTrace: 1
   activeFlags: -1
   flags:
   - Flag1
