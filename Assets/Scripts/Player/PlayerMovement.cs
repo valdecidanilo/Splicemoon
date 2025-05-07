@@ -13,7 +13,8 @@ namespace Player
         private Vector2 inputBuffer;
         private bool isMoving;
         private bool isInBattle;
-        private bool isWaitingToMove;
+        private bool isWaitingToMove = false;
+        private bool isTurning;
         
         [Header("References")]
         [SerializeField] private PlayerAnimatorController animatorController;
@@ -28,54 +29,40 @@ namespace Player
         {
             if (isMoving || isInBattle) return;
 
-            // Captura input
             inputBuffer.x = Input.GetAxisRaw("Horizontal");
             inputBuffer.y = Input.GetAxisRaw("Vertical");
 
-            // Bloqueia diagonais
             if (inputBuffer.x != 0) inputBuffer.y = 0;
 
             if (inputBuffer != Vector2.zero)
             {
-                // Se a direção mudou OU é o primeiro input
+                // Se mudou de direção OU é o primeiro input
                 if (inputBuffer != currentDirection || !isWaitingToMove)
                 {
                     currentDirection = inputBuffer;
+                    isWaitingToMove = false;
                     StartCoroutine(HandleTurn());
                 }
-                else
+                // Se mantém a mesma direção após o turn delay
+                else if (inputBuffer == currentDirection && !isTurning)
                 {
-                    if (inputBuffer == currentDirection && !isWaitingToMove)
-                    {
-                        MoveToTarget();
-                    }
+                    MoveToTarget();
                 }
             }
             else
             {
-                // Resetar estados quando não há input
                 isWaitingToMove = false;
                 animatorController.SetMoveDirection(Vector2.zero, false);
             }
         }
-
         private IEnumerator HandleTurn()
         {
-            // Executa a virada
             animatorController.SetMoveDirection(currentDirection, false);
             UpdateSpriteFlip();
-            
-            // Marca que está esperando para mover
-            isWaitingToMove = true;
-            
             // Espera o delay configurado
             yield return new WaitForSeconds(turnDelay);
-            isWaitingToMove = false;
-            // Se após o delay ainda está pressionando a mesma direção
-            if (inputBuffer == currentDirection && !isMoving)
-            {
-                MoveToTarget();
-            }
+            isWaitingToMove = true;
+
         }
 
         private void UpdateSpriteFlip()
@@ -100,7 +87,7 @@ namespace Player
         private IEnumerator ExecuteMovement(Vector3 destination)
         {
             isMoving = true;
-            
+    
             while (Vector3.Distance(transform.position, destination) > 0.001f)
             {
                 transform.position = Vector3.MoveTowards(
@@ -108,16 +95,18 @@ namespace Player
                     destination, 
                     moveSpeed * Time.deltaTime
                 );
-                
+        
                 UpdateGrassDetection();
                 yield return null;
             }
 
             transform.position = destination;
             isMoving = false;
-            
+    
             CheckForBattles();
-            animatorController.SetMoveDirection(Vector2.zero, false);
+    
+            if (inputBuffer == Vector2.zero)
+                animatorController.SetMoveDirection(Vector2.zero, false);
         }
 
         private void UpdateGrassDetection()
