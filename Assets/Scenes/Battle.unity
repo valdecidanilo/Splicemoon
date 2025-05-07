@@ -5924,9 +5924,7 @@ MonoBehaviour:
   gridSize: 0.16
   radiusGrass: 0.3
   radius: 0.05
-  originY: 0.2
-  inBattle: 0
-  isMoving: 0
+  originY: 0.03
 --- !u!212 &967045577
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11714,7 +11712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2064500273
 MonoBehaviour:
   m_ObjectHideFlags: 0
