@@ -7,7 +7,7 @@ namespace Player
     public class BattleTriggerZone : MonoBehaviour
     {
         public LayerMask grassLayer;
-        public float encounterChance = 0.1f; // 10% chance
+        public float encounterChance = 0.1f;
         public BattleController battleController;
         public BattleUIManager uIManager;
         public void TryStartBattle(Action<bool> encounterBattle)

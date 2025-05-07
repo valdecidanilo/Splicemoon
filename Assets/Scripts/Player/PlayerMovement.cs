@@ -12,7 +12,7 @@ namespace Player
         private Vector2 currentDirection;
         private Vector2 inputBuffer;
         private bool isMoving;
-        private bool isInBattle;
+        public bool isInBattle;
         private bool isWaitingToMove = false;
         private bool isTurning;
         
@@ -36,14 +36,12 @@ namespace Player
 
             if (inputBuffer != Vector2.zero)
             {
-                // Se mudou de direção OU é o primeiro input
                 if (inputBuffer != currentDirection || !isWaitingToMove)
                 {
                     currentDirection = inputBuffer;
                     isWaitingToMove = false;
                     StartCoroutine(HandleTurn());
                 }
-                // Se mantém a mesma direção após o turn delay
                 else if (inputBuffer == currentDirection && !isTurning)
                 {
                     MoveToTarget();
@@ -59,10 +57,8 @@ namespace Player
         {
             animatorController.SetMoveDirection(currentDirection, false);
             UpdateSpriteFlip();
-            // Espera o delay configurado
             yield return new WaitForSeconds(turnDelay);
             isWaitingToMove = true;
-
         }
 
         private void UpdateSpriteFlip()
@@ -118,12 +114,16 @@ namespace Player
         private void CheckForBattles()
         {
             var battleZone = GetComponentInChildren<BattleTriggerZone>();
-            battleZone?.TryStartBattle(encounter => isInBattle = encounter);
+            battleZone?.TryStartBattle(encounter =>
+            {
+                isInBattle = encounter;
+                inputBuffer = Vector2.zero;
+            });
         }
 
         private bool IsWalkable(Vector3 targetPos)
         {
-            return true; // Implemente sua verificação de colisão
+            return true;
         }
 
         #if UNITY_EDITOR
