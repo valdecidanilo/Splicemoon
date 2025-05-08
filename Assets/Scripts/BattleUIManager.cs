@@ -79,6 +79,7 @@ public class BattleUIManager : MonoBehaviour
     public void UpdateTextSelectAttack(int id)
     {
         powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppCurrent}/{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppMax}");
+        typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}");
     }
     private void Selected(int id)
     {
