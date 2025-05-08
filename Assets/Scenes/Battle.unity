@@ -3438,7 +3438,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 0.95
+  orthographic size: 0.9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5656,7 +5656,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c7345e0611f7b4caed62a84b6cb6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 864937962}
 --- !u!1 &876925230
 GameObject:
   m_ObjectHideFlags: 0
@@ -6278,7 +6277,7 @@ MonoBehaviour:
   gridSize: 0.16
   radiusGrass: 0.3
   radius: 0.05
-  originY: 0.03
+  originY: 0.04
 --- !u!212 &967045577
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7264,6 +7263,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   encounterChance: 0.1
+  originY: 0.04
+  radius: 0.05
   battleController: {fileID: 857530586}
   uIManager: {fileID: 884763897}
 --- !u!114 &1070453936
