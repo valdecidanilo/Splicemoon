@@ -29,7 +29,7 @@ namespace Editor
         {
             if (!isDownloading)
             {
-                if (GUILayout.Button("Start Download"))
+                if (GUILayout.Button("Iniciar Download"))
                 {
                     isDownloading = true;
                     EditorCoroutineUtility.StartCoroutineOwnerless(DownloadAllSplicemons());
