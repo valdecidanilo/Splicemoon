@@ -739,6 +739,7 @@ GameObject:
   - component: {fileID: 155682946}
   - component: {fileID: 155682945}
   - component: {fileID: 155682944}
+  - component: {fileID: 155682948}
   m_Layer: 5
   m_Name: CanvasBattle
   m_TagString: Untagged
@@ -834,6 +835,43 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &155682948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 155682943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 072dd17d4511fdf4fa6ab3683df155df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageUI: {fileID: 296565609}
+  userSelectInterface: {fileID: 18787318}
+  userAttackInterface: {fileID: 261136615}
+  playerBagSplicemons: {fileID: 967045584}
+  animatorCallGround: {fileID: 864937962}
+  animatorTransition: {fileID: 1210860903}
+  animatorBoardOpponent: {fileID: 1633753656}
+  animatorBoardPlayer: {fileID: 700040374}
+  sourceBattleSound: {fileID: 666707657}
+  opponentInfo: {fileID: 808915902817260274}
+  playerInfo: {fileID: 1442116511}
+  isBagOrSelect: 0
+  currentInterface: -1
+  inBattle: 0
+  isTryRunning: 0
+  firstTime: 0
+  audioSource: {fileID: 1472674608}
+  typeAttack: {fileID: 1080458179}
+  powerPoint: {fileID: 1051939201}
+  messageText: {fileID: 2142307327}
+  textsAttacks:
+  - {fileID: 1710197549}
+  - {fileID: 379867727}
+  - {fileID: 694346262}
+  - {fileID: 379705631}
 --- !u!1 &190475344
 GameObject:
   m_ObjectHideFlags: 0
@@ -2128,6 +2166,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Asset: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_ActionId: 0489e84a-4833-4c40-bfae-cea84b696689
+--- !u!1 &411146732
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 411146734}
+  - component: {fileID: 411146733}
+  m_Layer: 0
+  m_Name: PlayerUIManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &411146733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411146732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85913928d66d4cc7a21b462324cf0c86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 967045576}
+  uiSplicemon: {fileID: 1120603763}
+  uiBag: {fileID: 1756303618}
+  uiProfile: {fileID: 974681830}
+  menu: {fileID: 1948987402}
+  sourceBattleSound: {fileID: 1986083875}
+  animatorTransition: {fileID: 1210860903}
+  buttons:
+  - {fileID: 6342178001930726417}
+  - {fileID: 1972918260}
+  - {fileID: 1482931996}
+  - {fileID: 1784611141}
+  currentSelect: 0
+  stopNavigation: 0
+--- !u!4 &411146734
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 411146732}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.27149612, y: 0.1078984, z: -0.0048584724}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &416746234
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2136,6 +2232,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 456761712}
     m_Modifications:
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: containerSelect.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[0]'
+      value: 
+      objectReference: {fileID: -6748563703026927045, guid: cc8f022eff0e6184081b62321ddee4aa, type: 3}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[1]'
+      value: 
+      objectReference: {fileID: -2604447295387547537, guid: cd9b1058fdfead14b95a6d34a8008c62, type: 3}
     - target: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2234,6 +2342,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
   m_PrefabInstance: {fileID: 416746234}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &416746236 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+  m_PrefabInstance: {fileID: 416746234}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &417742687
 GameObject:
   m_ObjectHideFlags: 0
@@ -2789,6 +2908,7 @@ GameObject:
   - component: {fileID: 478889636}
   - component: {fileID: 478889638}
   - component: {fileID: 478889637}
+  - component: {fileID: 478889639}
   m_Layer: 5
   m_Name: CardCurrentSlicemon
   m_TagString: Untagged
@@ -2860,6 +2980,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 478889635}
   m_CullTransparentMesh: 1
+--- !u!114 &478889639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478889635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSelect: {fileID: 649144814}
+  iconGender: {fileID: 856868086}
+  iconSplicemon: {fileID: 559881054}
+  containerImage: {fileID: 478889637}
+  containerSelect:
+  - {fileID: -2463274700679431471, guid: 2a7dc623ef15cca4780aeac418314c0f, type: 3}
+  - {fileID: 5708384835273863058, guid: fea3a3c9baf38914e87e708fbac2a36f, type: 3}
+  nameSplicemon: {fileID: 929477487}
+  levelSplicemon: {fileID: 2084812091}
+  hpSplicemon: {fileID: 1874836489}
+  healthBar: {fileID: 1516830415}
 --- !u!1001 &485361903
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2868,6 +3011,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 456761712}
     m_Modifications:
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: containerSelect.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[0]'
+      value: 
+      objectReference: {fileID: -6748563703026927045, guid: cc8f022eff0e6184081b62321ddee4aa, type: 3}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[1]'
+      value: 
+      objectReference: {fileID: -2604447295387547537, guid: cd9b1058fdfead14b95a6d34a8008c62, type: 3}
     - target: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2966,6 +3121,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
   m_PrefabInstance: {fileID: 485361903}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &485361905 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+  m_PrefabInstance: {fileID: 485361903}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &488731084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3524,6 +3690,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 456761712}
     m_Modifications:
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: containerSelect.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[0]'
+      value: 
+      objectReference: {fileID: -6748563703026927045, guid: cc8f022eff0e6184081b62321ddee4aa, type: 3}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[1]'
+      value: 
+      objectReference: {fileID: -2604447295387547537, guid: cd9b1058fdfead14b95a6d34a8008c62, type: 3}
     - target: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3622,6 +3800,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
   m_PrefabInstance: {fileID: 558484846}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &558484848 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+  m_PrefabInstance: {fileID: 558484846}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &559881052
 GameObject:
   m_ObjectHideFlags: 0
@@ -3798,7 +3987,7 @@ GameObject:
   - component: {fileID: 617929405}
   - component: {fileID: 617929404}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4343,55 +4532,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 709254148}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &693487548
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 693487550}
-  - component: {fileID: 693487549}
-  m_Layer: 0
-  m_Name: PlayerBagSplicemon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &693487549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693487548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749ecd0386944194789a0b34750ea81a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentSplicemon: {fileID: 0}
-  splicemons: []
-  bagInitialized: 0
-  myPokemonTest: 106
-  level: 8
---- !u!4 &693487550
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 693487548}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 569.42773, y: 415.49066, z: -1.3017514}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &694346260
 GameObject:
   m_ObjectHideFlags: 0
@@ -4748,6 +4888,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 456761712}
     m_Modifications:
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: containerSelect.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[0]'
+      value: 
+      objectReference: {fileID: -6748563703026927045, guid: cc8f022eff0e6184081b62321ddee4aa, type: 3}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[1]'
+      value: 
+      objectReference: {fileID: -2604447295387547537, guid: cd9b1058fdfead14b95a6d34a8008c62, type: 3}
     - target: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4846,6 +4998,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
   m_PrefabInstance: {fileID: 812609135}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &812609137 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+  m_PrefabInstance: {fileID: 812609135}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &813931299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5223,10 +5386,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69bec6a67b505ea4b8d85bf06043a493, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uIManager: {fileID: 884763897}
-  playerBagSplicemons: {fileID: 693487549}
+  uIManager: {fileID: 155682948}
+  playerBagSplicemons: {fileID: 967045584}
   opponentPokeData: {fileID: 0}
   playerMovement: {fileID: 967045576}
+  playerUIManager: {fileID: 411146733}
   battleSound: {fileID: 1986083875}
   hitClip: {fileID: 8300000, guid: 2a4ec34413a73fc4995b177dcaa8ffab, type: 3}
   victoryClip: {fileID: 8300000, guid: ceee5a2a531ed8a49a75e7d5cc679b3f, type: 3}
@@ -5240,7 +5404,6 @@ GameObject:
   m_Component:
   - component: {fileID: 864937961}
   - component: {fileID: 864937962}
-  - component: {fileID: 864937963}
   m_Layer: 5
   m_Name: Terrain_Battle
   m_TagString: Untagged
@@ -5291,18 +5454,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &864937963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 864937960}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c7345e0611f7b4caed62a84b6cb6e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &876925230
 GameObject:
   m_ObjectHideFlags: 0
@@ -5514,74 +5665,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879402781}
   m_CullTransparentMesh: 1
---- !u!1 &884763896
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 884763898}
-  - component: {fileID: 884763897}
-  m_Layer: 0
-  m_Name: BattleUIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &884763897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884763896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 072dd17d4511fdf4fa6ab3683df155df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasBattleUI: {fileID: 155682943}
-  messageUI: {fileID: 296565609}
-  userSelectInterface: {fileID: 18787318}
-  userAttackInterface: {fileID: 261136615}
-  playerBagBagSplicemons: {fileID: 693487549}
-  animatorCallGround: {fileID: 864937962}
-  animatorTransition: {fileID: 1210860903}
-  animatorBoardOpponent: {fileID: 1633753656}
-  animatorBoardPlayer: {fileID: 700040374}
-  sourceBattleSound: {fileID: 666707657}
-  opponentInfo: {fileID: 808915902817260274}
-  playerInfo: {fileID: 1442116511}
-  currentInterface: -1
-  inBattle: 0
-  firstTime: 1
-  audioSource: {fileID: 1472674608}
-  typeAttack: {fileID: 1080458179}
-  powerPoint: {fileID: 1051939201}
-  messageText: {fileID: 2142307327}
-  textsAttacks:
-  - {fileID: 1710197549}
-  - {fileID: 379867727}
-  - {fileID: 694346262}
-  - {fileID: 379705631}
---- !u!4 &884763898
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 884763896}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 159.46666, y: 91.58179, z: -0.22671539}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &929477485
 GameObject:
   m_ObjectHideFlags: 0
@@ -5894,7 +5977,7 @@ GameObject:
   - component: {fileID: 967045577}
   - component: {fileID: 967045576}
   - component: {fileID: 967045582}
-  - component: {fileID: 967045583}
+  - component: {fileID: 967045584}
   - component: {fileID: 967045579}
   - component: {fileID: 967045580}
   - component: {fileID: 967045581}
@@ -5919,7 +6002,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
   turnDelay: 0.1
-  isInBattle: 0
+  inBattleSpr: {fileID: 989767654}
   animatorController: {fileID: 967045582}
   gridSize: 0.16
   radiusGrass: 0.3
@@ -5994,6 +6077,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1055335818}
+  - {fileID: 989767655}
+  - {fileID: 1656537006}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &967045579
@@ -6094,7 +6179,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 967045577}
---- !u!114 &967045583
+--- !u!114 &967045584
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6103,10 +6188,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 967045575}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 823d35b891e873d44b5c3ec60e0e1899, type: 3}
+  m_Script: {fileID: 11500000, guid: 749ecd0386944194789a0b34750ea81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory: {fileID: 11400000, guid: 5f4a5c1323bb944449b73b3f2832be28, type: 2}
+  currentSplicemon: {fileID: 0}
+  splicemons:
+  - {fileID: 1656537007}
+  bagInitialized: 0
+  myPokemonTest: 61
+  level: 8
 --- !u!1 &974681830
 GameObject:
   m_ObjectHideFlags: 0
@@ -6287,6 +6377,93 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980922970}
   m_CullTransparentMesh: 1
+--- !u!1 &989767653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 989767655}
+  - component: {fileID: 989767654}
+  m_Layer: 0
+  m_Name: InBattle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &989767654
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989767653}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 63a477fbd10bd7c4a813e6b8b7a91e9c, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 0.32, y: 0.32}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &989767655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 989767653}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.16909686, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 967045578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &992329689
 GameObject:
   m_ObjectHideFlags: 0
@@ -6479,6 +6656,7 @@ GameObject:
   - component: {fileID: 1022885083}
   - component: {fileID: 1022885085}
   - component: {fileID: 1022885084}
+  - component: {fileID: 1022885087}
   - component: {fileID: 1022885086}
   m_Layer: 5
   m_Name: ButtonBack
@@ -6555,39 +6733,64 @@ MonoBehaviour:
   m_GameObject: {fileID: 1022885082}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Script: {fileID: 11500000, guid: baa4316127c8473b8234d424b5df13bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 1022885084}
-  m_OnClick:
+  button: {fileID: 1022885087}
+  iconSelect: {fileID: 932735281}
+  container: {fileID: 1022885084}
+  containerSelect:
+  - {fileID: 3172565585761478668, guid: 65b55f7d4f4c00545aacb395f7b6b31f, type: 3}
+  - {fileID: 6413149667092703270, guid: 1d83da4f004276c4e904c2e4d2e7dadd, type: 3}
+--- !u!114 &1022885087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1022885082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61850f1f6a0ce364e883860c5e63c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 1022885083}
+  _interactable: 1
+  transition:
+    targetGraphic: {fileID: 1022885084}
+    childGraphics:
+    - {fileID: 932735281}
+    - {fileID: 1512527478}
+    childTexts:
+    - {fileID: 1512527478}
+    constructorSerialized: 1
+    colorTintTransition: 1
+    spriteSwapTransition: 0
+    animationTransition: 0
+    changeChildrenColor: 0
+    changeChildrenAlpha: 0
+    invertColorOnTexts: 0
+    blockColors:
+      m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+      m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+      m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+      m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+      m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+      m_ColorMultiplier: 1
+      m_FadeDuration: 0.1
+    targetColorBlend: {r: 0, g: 0, b: 0, a: 0}
+    spriteState:
+      m_HighlightedSprite: {fileID: 0}
+      m_PressedSprite: {fileID: 0}
+      m_SelectedSprite: {fileID: 0}
+      m_DisabledSprite: {fileID: 0}
+    normalAnimation: {fileID: 0}
+    highlightedAnimation: {fileID: 0}
+    pressedAnimation: {fileID: 0}
+    selectedAnimation: {fileID: 0}
+    disabledAnimation: {fileID: 0}
+  subTransitions: []
+  onClick:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &1051903647
@@ -6909,11 +7112,11 @@ MonoBehaviour:
   grassLayer:
     serializedVersion: 2
     m_Bits: 8
-  encounterChance: 0.1
+  encounterChance: 0.8
   originY: 0.04
   radius: 0.05
   battleController: {fileID: 857530586}
-  uIManager: {fileID: 884763897}
+  playerUIManager: {fileID: 411146733}
 --- !u!114 &1070453936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7244,8 +7447,9 @@ GameObject:
   - component: {fileID: 1120603766}
   - component: {fileID: 1120603765}
   - component: {fileID: 1120603764}
+  - component: {fileID: 1120603768}
   m_Layer: 5
-  m_Name: CanvasPokeSelect
+  m_Name: CanvasSliceSelect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7312,7 +7516,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &1120603767
 RectTransform:
@@ -7338,6 +7542,35 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1120603768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120603763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cb98d9203b8bd24c8a181f7f9be9aae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUIManager: {fileID: 411146733}
+  playerBag: {fileID: 967045584}
+  cards:
+  - {fileID: 1788789570}
+  - {fileID: 558484848}
+  - {fileID: 485361905}
+  - {fileID: 416746236}
+  - {fileID: 812609137}
+  selected:
+  - {fileID: -4412288607071258336, guid: eedf2ede87ece73489979288256c3496, type: 3}
+  - {fileID: -5925553701154211566, guid: 3f3a97fc2aa638d4e8a7bfcaa6b30c4b, type: 3}
+  gender:
+  - {fileID: 2069938804795247361, guid: 94494ef66597d654ab601956e191b09c, type: 3}
+  - {fileID: 3798582454716192034, guid: 351470c051b1ee34faea60ba5db0cfaf, type: 3}
+  buttonClose: {fileID: 1022885086}
+  selectedCard: {fileID: 478889639}
+  currentSelect: 0
 --- !u!1 &1158215469
 GameObject:
   m_ObjectHideFlags: 0
@@ -9157,6 +9390,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 963691410576930154, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
   m_PrefabInstance: {fileID: 1482931992}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1482931996 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 185790082191501975, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
+  m_PrefabInstance: {fileID: 1482931992}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61850f1f6a0ce364e883860c5e63c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1485436998
 GameObject:
   m_ObjectHideFlags: 0
@@ -9504,6 +9748,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512527476}
   m_CullTransparentMesh: 1
+--- !u!114 &1516830415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1181230982822167899, guid: cdb0bdca67a08334e91738adad843c88, type: 3}
+  m_PrefabInstance: {fileID: 488731084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93957264c7c02014bb61d99f86353ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1633753652
 GameObject:
   m_ObjectHideFlags: 0
@@ -9680,6 +9935,196 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640184150}
   m_CullTransparentMesh: 1
+--- !u!1 &1656537005
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1656537006}
+  - component: {fileID: 1656537007}
+  m_Layer: 0
+  m_Name: diglett
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1656537006
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656537005}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 967045578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1656537007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656537005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f574bd577c8b5524ca4bd6b604715f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 50
+  nameSpliceMon: diglett
+  isFemale: 0
+  nature: hardy
+  level: 8
+  levelMax: 100
+  baseExperience: 53
+  experience: 0
+  experienceMax: 512
+  growthRate: 2
+  frontSprite: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/50.png
+  backSprite: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/50.png
+  crySound: https://raw.githubusercontent.com/PokeAPI/cries/main/cries/pokemon/latest/50.ogg
+  stats:
+    hpStats:
+      name: hp
+      iv: 28
+      baseStat: 20
+      effort: 0
+      currentStat: 20
+    attackStats:
+      name: attack
+      iv: 9
+      baseStat: 0
+      effort: 0
+      currentStat: 5
+    defenseStats:
+      name: defense
+      iv: 0
+      baseStat: 0
+      effort: 0
+      currentStat: 5
+    specialAttackStats:
+      name: special-attacks
+      iv: 2
+      baseStat: 0
+      effort: 0
+      currentStat: 5
+    specialDefenseStats:
+      name: special-defenses
+      iv: 5
+      baseStat: 0
+      effort: 0
+      currentStat: 5
+    speedStats:
+      name: speed
+      iv: 29
+      baseStat: 0
+      effort: 0
+      currentStat: 7
+    possiblesMoveAttack:
+    - https://pokeapi.co/api/v2/move/10/
+    - https://pokeapi.co/api/v2/move/14/
+    - https://pokeapi.co/api/v2/move/15/
+    - https://pokeapi.co/api/v2/move/28/
+    - https://pokeapi.co/api/v2/move/29/
+    - https://pokeapi.co/api/v2/move/34/
+    - https://pokeapi.co/api/v2/move/36/
+    - https://pokeapi.co/api/v2/move/38/
+    - https://pokeapi.co/api/v2/move/45/
+    - https://pokeapi.co/api/v2/move/89/
+    - https://pokeapi.co/api/v2/move/90/
+    - https://pokeapi.co/api/v2/move/91/
+    - https://pokeapi.co/api/v2/move/92/
+    - https://pokeapi.co/api/v2/move/97/
+    - https://pokeapi.co/api/v2/move/99/
+    - https://pokeapi.co/api/v2/move/102/
+    - https://pokeapi.co/api/v2/move/103/
+    - https://pokeapi.co/api/v2/move/104/
+    - https://pokeapi.co/api/v2/move/117/
+    - https://pokeapi.co/api/v2/move/154/
+    - https://pokeapi.co/api/v2/move/156/
+    - https://pokeapi.co/api/v2/move/157/
+    - https://pokeapi.co/api/v2/move/163/
+    - https://pokeapi.co/api/v2/move/164/
+    - https://pokeapi.co/api/v2/move/168/
+    - https://pokeapi.co/api/v2/move/173/
+    - https://pokeapi.co/api/v2/move/174/
+    - https://pokeapi.co/api/v2/move/179/
+    - https://pokeapi.co/api/v2/move/182/
+    - https://pokeapi.co/api/v2/move/185/
+    - https://pokeapi.co/api/v2/move/188/
+    - https://pokeapi.co/api/v2/move/189/
+    - https://pokeapi.co/api/v2/move/201/
+    - https://pokeapi.co/api/v2/move/203/
+    - https://pokeapi.co/api/v2/move/204/
+    - https://pokeapi.co/api/v2/move/207/
+    - https://pokeapi.co/api/v2/move/213/
+    - https://pokeapi.co/api/v2/move/214/
+    - https://pokeapi.co/api/v2/move/216/
+    - https://pokeapi.co/api/v2/move/218/
+    - https://pokeapi.co/api/v2/move/222/
+    - https://pokeapi.co/api/v2/move/228/
+    - https://pokeapi.co/api/v2/move/237/
+    - https://pokeapi.co/api/v2/move/241/
+    - https://pokeapi.co/api/v2/move/246/
+    - https://pokeapi.co/api/v2/move/249/
+    - https://pokeapi.co/api/v2/move/251/
+    - https://pokeapi.co/api/v2/move/253/
+    - https://pokeapi.co/api/v2/move/262/
+    - https://pokeapi.co/api/v2/move/263/
+    - https://pokeapi.co/api/v2/move/270/
+    - https://pokeapi.co/api/v2/move/283/
+    - https://pokeapi.co/api/v2/move/290/
+    - https://pokeapi.co/api/v2/move/310/
+    - https://pokeapi.co/api/v2/move/317/
+    - https://pokeapi.co/api/v2/move/328/
+    - https://pokeapi.co/api/v2/move/332/
+    - https://pokeapi.co/api/v2/move/341/
+    - https://pokeapi.co/api/v2/move/350/
+    - https://pokeapi.co/api/v2/move/363/
+    - https://pokeapi.co/api/v2/move/372/
+    - https://pokeapi.co/api/v2/move/389/
+    - https://pokeapi.co/api/v2/move/414/
+    - https://pokeapi.co/api/v2/move/421/
+    - https://pokeapi.co/api/v2/move/426/
+    - https://pokeapi.co/api/v2/move/444/
+    - https://pokeapi.co/api/v2/move/445/
+    - https://pokeapi.co/api/v2/move/446/
+    - https://pokeapi.co/api/v2/move/468/
+    - https://pokeapi.co/api/v2/move/479/
+    - https://pokeapi.co/api/v2/move/492/
+    - https://pokeapi.co/api/v2/move/496/
+    - https://pokeapi.co/api/v2/move/497/
+    - https://pokeapi.co/api/v2/move/502/
+    - https://pokeapi.co/api/v2/move/515/
+    - https://pokeapi.co/api/v2/move/523/
+    - https://pokeapi.co/api/v2/move/526/
+    - https://pokeapi.co/api/v2/move/590/
+    - https://pokeapi.co/api/v2/move/675/
+    - https://pokeapi.co/api/v2/move/707/
+    - https://pokeapi.co/api/v2/move/815/
+    - https://pokeapi.co/api/v2/move/851/
+    movesAttack:
+    - nameMove: scratch
+      ppMax: 35
+      ppCurrent: 35
+    - nameMove: swords-dance
+      ppMax: 20
+      ppCurrent: 20
+    - nameMove: cut
+      ppMax: 30
+      ppCurrent: 30
+    - nameMove: sand-attack
+      ppMax: 15
+      ppCurrent: 15
 --- !u!114 &1679189956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10392,6 +10837,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2546461286577445002, guid: 1bf644468573c5d4cb558788fcf3ba20, type: 3}
   m_PrefabInstance: {fileID: 1780546945}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1784611141 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 185790082191501975, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
+  m_PrefabInstance: {fileID: 1016182017}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61850f1f6a0ce364e883860c5e63c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1788789566
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10400,6 +10856,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 456761712}
     m_Modifications:
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: containerSelect.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[0]'
+      value: 
+      objectReference: {fileID: -6748563703026927045, guid: cc8f022eff0e6184081b62321ddee4aa, type: 3}
+    - target: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+      propertyPath: 'containerSelect.Array.data[1]'
+      value: 
+      objectReference: {fileID: -2604447295387547537, guid: cd9b1058fdfead14b95a6d34a8008c62, type: 3}
     - target: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10498,6 +10966,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5465770486062032786, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
   m_PrefabInstance: {fileID: 1788789566}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1788789570 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1692964037034756653, guid: 04d6517c7213fc942a5eec20561608c0, type: 3}
+  m_PrefabInstance: {fileID: 1788789566}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1825957824
 GameObject:
   m_ObjectHideFlags: 0
@@ -11194,6 +11673,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 963691410576930154, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
   m_PrefabInstance: {fileID: 1972918256}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1972918260 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 185790082191501975, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
+  m_PrefabInstance: {fileID: 1972918256}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61850f1f6a0ce364e883860c5e63c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1985511454
 GameObject:
   m_ObjectHideFlags: 0
@@ -12390,6 +12880,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 963691410576930154, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
   m_PrefabInstance: {fileID: 7184850291668438548}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6342178001930726417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 185790082191501975, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
+  m_PrefabInstance: {fileID: 7184850291668438548}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61850f1f6a0ce364e883860c5e63c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7184850291668438548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12485,6 +12986,10 @@ PrefabInstance:
     - target: {fileID: 2704235253922148482, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
       propertyPath: m_Name
       value: ContainerItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8862710633786274856, guid: ae6f1eb296a06d14888567c4bc228786, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12605,10 +13110,9 @@ SceneRoots:
   - {fileID: 1240512081}
   - {fileID: 1320141537}
   - {fileID: 2064500274}
-  - {fileID: 884763898}
   - {fileID: 857530585}
   - {fileID: 709254148}
-  - {fileID: 693487550}
+  - {fileID: 411146734}
   - {fileID: 967045578}
   - {fileID: 1113401631}
   - {fileID: 617929405}
