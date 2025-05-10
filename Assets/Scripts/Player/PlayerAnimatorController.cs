@@ -33,5 +33,9 @@ namespace Player
                 }
             }
         }
+        public void SetRunState(bool isRunning)
+        {
+            animator.SetBool("IsRunning", isRunning);
+        }
     }
 }

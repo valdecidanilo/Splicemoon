@@ -6,12 +6,13 @@ namespace Player
     public class PlayerMovement : MonoBehaviour
     {
         // Configurações
-        public float moveSpeed = 3f;
+        public float moveSpeed = .5f;
         [SerializeField] private float turnDelay = 0.15f; // Ajuste esse valor no Inspector
         
         private Vector2 currentDirection;
         private Vector2 inputBuffer;
         private bool isMoving;
+        private bool isRuning;
         public bool isInBattle;
         private bool isWaitingToMove = false;
         private bool isTurning;
@@ -31,6 +32,9 @@ namespace Player
 
             inputBuffer.x = Input.GetAxisRaw("Horizontal");
             inputBuffer.y = Input.GetAxisRaw("Vertical");
+            isRuning = Input.GetKey(KeyCode.LeftShift);
+            moveSpeed = isRuning ? 1f : .5f;
+            animatorController.SetRunState(isRuning);
 
             if (inputBuffer.x != 0) inputBuffer.y = 0;
 
@@ -114,6 +118,7 @@ namespace Player
         private void CheckForBattles()
         {
             var battleZone = GetComponentInChildren<BattleTriggerZone>();
+            battleZone.originY = originY;
             battleZone?.TryStartBattle(encounter =>
             {
                 isInBattle = encounter;
@@ -129,9 +134,7 @@ namespace Player
         #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.cyan;
             var origin = new Vector2(transform.position.x, transform.position.y - originY);
-            Gizmos.DrawWireSphere(origin, radius);
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(origin, radiusGrass);
         }
