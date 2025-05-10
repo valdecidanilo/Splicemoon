@@ -26,7 +26,7 @@ public class PlayerBagSplicemons : MonoBehaviour
         currentSplicemon.level = level;
         currentSplicemon.Initialize(pokeData);
         bagInitialized = true;
-        var fourfirst = currentSplicemon.moveAttack.Take(4).ToList();
+        var fourfirst = currentSplicemon.stats.possiblesMoveAttack.Take(4).ToList();
         StartCoroutine(ApiManager.GetMoveDetails(fourfirst, moveAttackList =>
         {
             
@@ -34,7 +34,7 @@ public class PlayerBagSplicemons : MonoBehaviour
             {
                 moveAttackList[i].ppCurrent = moveAttackList[i].ppMax;
             }
-            currentSplicemon.itensMove = new List<MoveDetails>(moveAttackList);
+            currentSplicemon.stats.movesAttack = new List<MoveDetails>(moveAttackList);
         }));
     }
 }

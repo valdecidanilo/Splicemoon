@@ -1,12 +1,9 @@
 ﻿using System;
-using Models;
-using UnityEngine;
-using Logger = LenixSO.Logger.Logger;
 
 namespace Schemas
 {
     [Serializable]
-    public struct GameStats
+    public struct Stats
     {
         public string name;
         public int iv;
@@ -15,9 +12,18 @@ namespace Schemas
         public int effort;
         public int currentStat;
         
-        public static GameStats FromApiModel(Stats apiStats)
+        public Stats(string name, int iv, int baseStat, int effort)
         {
-            return new GameStats
+            this.name = name;
+            this.iv = iv;
+            this.baseStat = baseStat;
+            this.effort = effort;
+            currentStat = baseStat;
+        }
+        
+        public static Stats FromApiModel(Models.Stats apiStats)
+        {
+            return new Stats
             {
                 name = apiStats.status.nameStat,
                 iv = apiStats.iv,

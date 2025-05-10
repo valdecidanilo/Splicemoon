@@ -29,38 +29,30 @@ namespace Inventory
         public string backSprite;
 
         [Header("Audio")] public string crySound;
-
-        [Header("Battle Stats")] public GameStats hpStats;
-        public GameStats attackStats;
-        public GameStats defenseStats;
-        public GameStats specialAttackStats;
-        public GameStats specialDefenseStats;
-        public GameStats speedStats;
-
-        public List<string> moveAttack = new();
-        public List<MoveDetails> itensMove = new();
+        
+        public SplicemonStats stats;
 
         public void Initialize(PokeData PokeData, bool isFemale = false)
         {
-            hpStats.name = "hp";
-            attackStats.name = "attack";
-            defenseStats.name = "defense";
-            specialAttackStats.name = "special-attacks";
-            specialDefenseStats.name = "special-defenses";
-            speedStats.name = "speed";
+            stats.hpStats.name = "hp";
+            stats.attackStats.name = "attack";
+            stats.defenseStats.name = "defense";
+            stats.specialAttackStats.name = "special-attacks";
+            stats.specialDefenseStats.name = "special-defenses";
+            stats.speedStats.name = "speed";
 
-            hpStats.iv = Random.Range(0, 32);
-            attackStats.iv = Random.Range(0, 32);
-            defenseStats.iv = Random.Range(0, 32);
-            specialAttackStats.iv = Random.Range(0, 32);
-            specialDefenseStats.iv = Random.Range(0, 32);
-            speedStats.iv = Random.Range(0, 32);
+            stats.hpStats.iv = Random.Range(0, 32);
+            stats.attackStats.iv = Random.Range(0, 32);
+            stats.defenseStats.iv = Random.Range(0, 32);
+            stats.specialAttackStats.iv = Random.Range(0, 32);
+            stats.specialDefenseStats.iv = Random.Range(0, 32);
+            stats.speedStats.iv = Random.Range(0, 32);
 
             nature = Natures.GetRandomNature();
             var effects = Natures.NatureEffects[nature];
 
-            hpStats.baseStat = Maths.CalculateHp(hpStats.baseStat, hpStats.iv, hpStats.effort, level);
-            hpStats.currentStat = hpStats.baseStat;
+            stats.hpStats.baseStat = Maths.CalculateHp(stats.hpStats.baseStat, stats.hpStats.iv, stats.hpStats.effort, level);
+            stats.hpStats.currentStat = stats.hpStats.baseStat;
 
             experienceMax = GetExperienceForLevel(level);
             RecalculateStats(effects.increased, effects.decreased);
@@ -78,7 +70,7 @@ namespace Inventory
             crySound = pokeData.soundUrl.latest;
             var urlList = pokeData.movesAttack.Select(move => move.move.url).ToList();
             foreach (var moves in urlList)
-                moveAttack.Add(moves);
+                stats.possiblesMoveAttack.Add(moves);
             
         }
         //OLD Gain Expericence
@@ -132,45 +124,45 @@ namespace Inventory
 
             if (level > levelMax)
                 level = levelMax;
-            hpStats.currentStat = Maths.CalculateHp(hpStats.baseStat, hpStats.iv, hpStats.effort, level);
+            stats.hpStats.currentStat = Maths.CalculateHp(stats.hpStats.baseStat, stats.hpStats.iv, stats.hpStats.effort, level);
             RecalculateStats(natureIncreasedStat, natureDecreasedStat);
         }
 
 
         private void RecalculateStats(string natureIncreasedStat = "", string natureDecreasedStat = "")
         {
-            attackStats.currentStat = Maths.CalculateOtherStat(
-                attackStats.baseStat, attackStats.iv, attackStats.effort, level,
+            stats.attackStats.currentStat = Maths.CalculateOtherStat(
+                stats.attackStats.baseStat, stats.attackStats.iv, stats.attackStats.effort, level,
                 Natures.GetNatureMultiplier(
-                    attackStats.name,
+                    stats.attackStats.name,
                     natureIncreasedStat,
                     natureDecreasedStat)
             );
-            defenseStats.currentStat = Maths.CalculateOtherStat(
-                defenseStats.baseStat, defenseStats.iv, defenseStats.effort, level,
+            stats.defenseStats.currentStat = Maths.CalculateOtherStat(
+                stats.defenseStats.baseStat, stats.defenseStats.iv, stats.defenseStats.effort, level,
                 Natures.GetNatureMultiplier(
-                    defenseStats.name,
+                    stats.defenseStats.name,
                     natureIncreasedStat,
                     natureDecreasedStat)
             );
-            specialAttackStats.currentStat = Maths.CalculateOtherStat(
-                specialAttackStats.baseStat, specialAttackStats.iv, specialAttackStats.effort, level,
+            stats.specialAttackStats.currentStat = Maths.CalculateOtherStat(
+                stats.specialAttackStats.baseStat, stats.specialAttackStats.iv, stats.specialAttackStats.effort, level,
                 Natures.GetNatureMultiplier(
-                    specialAttackStats.name,
+                    stats.specialAttackStats.name,
                     natureIncreasedStat,
                     natureDecreasedStat)
             );
-            specialDefenseStats.currentStat = Maths.CalculateOtherStat(
-                specialDefenseStats.baseStat, specialDefenseStats.iv, specialDefenseStats.effort, level,
+            stats.specialDefenseStats.currentStat = Maths.CalculateOtherStat(
+                stats.specialDefenseStats.baseStat, stats.specialDefenseStats.iv, stats.specialDefenseStats.effort, level,
                 Natures.GetNatureMultiplier(
-                    specialDefenseStats.name,
+                    stats.specialDefenseStats.name,
                     natureIncreasedStat,
                     natureDecreasedStat)
             );
-            speedStats.currentStat = Maths.CalculateOtherStat(
-                speedStats.baseStat, speedStats.iv, speedStats.effort, level,
+            stats.speedStats.currentStat = Maths.CalculateOtherStat(
+                stats.speedStats.baseStat, stats.speedStats.iv, stats.speedStats.effort, level,
                 Natures.GetNatureMultiplier(
-                    speedStats.name,
+                    stats.speedStats.name,
                     natureIncreasedStat,
                     natureDecreasedStat)
             );
