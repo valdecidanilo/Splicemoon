@@ -78,22 +78,22 @@ public class BattleUIManager : MonoBehaviour
 
     public void UpdateTextSelectAttack(int id)
     {
-        powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppCurrent}/{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppMax}");
-        typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}");
+        powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].ppCurrent}/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].ppMax}");
+        typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].typeMove.typeAttack}");
     }
     private void Selected(int id)
     {
         if(currentInterface == CurrentInterface.Nothing) return;
-        if(currentSelected == 0 && currentInterface == CurrentInterface.Attack && typeAttack.text != $"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}")
-            typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}");
+        if(currentSelected == 0 && currentInterface == CurrentInterface.Attack && typeAttack.text != $"TYPE/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].typeMove.typeAttack}")
+            typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].typeMove.typeAttack}");
         if (currentSelected != id)
         {
             currentSelected = id;
             audioSource.Play();
             if (currentInterface == CurrentInterface.Attack)
             {
-                typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.itensMove[id].typeMove.typeAttack}");
-                powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppCurrent}/{playerBagBagSplicemons.currentSplicemon.itensMove[id].ppMax}");
+                typeAttack.SetText($"TYPE/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].typeMove.typeAttack}");
+                powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].ppCurrent}/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].ppMax}");
             }
         }
         if (!inBattle && !firstTime && !Input.GetKeyDown(KeyCode.KeypadEnter) && !Input.GetKeyDown(KeyCode.Return)) return;
@@ -115,7 +115,7 @@ public class BattleUIManager : MonoBehaviour
         switch (id)
         {
             case 0:
-                powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.itensMove[id].powerAttack}/{playerBagBagSplicemons.currentSplicemon.itensMove[0].powerAttack}");
+                powerPoint.SetText($"{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id].powerAttack}/{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[0].powerAttack}");
                 userAttackInterface.gameObject.SetActive(true);
                 userSelectInterface.gameObject.SetActive(false);
                 currentInterface = CurrentInterface.Attack;
@@ -138,8 +138,8 @@ public class BattleUIManager : MonoBehaviour
         playerInfo.SetLevel(playerBagBagSplicemons.currentSplicemon.level);
         playerInfo.expBar.SetMaxExp(playerBagBagSplicemons.currentSplicemon.experienceMax);
         playerInfo.expBar.SetExp(playerBagBagSplicemons.currentSplicemon.experience);
-        playerInfo.healthBar.SetMaxHealth(playerBagBagSplicemons.currentSplicemon.hpStats.currentStat);
-        playerInfo.healthBar.SetHealth(playerBagBagSplicemons.currentSplicemon.hpStats.currentStat);
+        playerInfo.healthBar.SetMaxHealth(playerBagBagSplicemons.currentSplicemon.stats.hpStats.currentStat);
+        playerInfo.healthBar.SetHealth(playerBagBagSplicemons.currentSplicemon.stats.hpStats.currentStat);
         playerInfo.SetGender(false);
         StartCoroutine(ApiManager.GetSprite(playerBagBagSplicemons.currentSplicemon.backSprite, sprite =>
         {
@@ -153,7 +153,7 @@ public class BattleUIManager : MonoBehaviour
             txt.SetText("-");
         for (var i = 0; i < textsAttacks.Count; i++)
         {
-            textsAttacks[i].SetText($"{playerBagBagSplicemons.currentSplicemon.PokeData.movesAttack[i].move.nameAttack}");
+            textsAttacks[i].SetText($"{playerBagBagSplicemons.currentSplicemon.stats.movesAttack[i].nameMove}");
         }
     }
     private void HandlerAttackInterface(int id)
@@ -163,19 +163,19 @@ public class BattleUIManager : MonoBehaviour
         {
             case 0:
                 Logger.Log("Apertou no 1");
-                OnAttackSlot1?.Invoke(playerBagBagSplicemons.currentSplicemon.itensMove[id], id);
+                OnAttackSlot1?.Invoke(playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id], id);
                 break;
             case 1:
                 Logger.Log("Apertou no 2");
-                OnAttackSlot2?.Invoke(playerBagBagSplicemons.currentSplicemon.itensMove[id], id);
+                OnAttackSlot2?.Invoke(playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id], id);
                 break;
             case 2:
                 Logger.Log("Apertou no 3");
-                OnAttackSlot3?.Invoke(playerBagBagSplicemons.currentSplicemon.itensMove[id], id);
+                OnAttackSlot3?.Invoke(playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id], id);
                 break;
             case 3:
                 Logger.Log("Apertou no 4");
-                OnAttackSlot4?.Invoke(playerBagBagSplicemons.currentSplicemon.itensMove[id], id);
+                OnAttackSlot4?.Invoke(playerBagBagSplicemons.currentSplicemon.stats.movesAttack[id], id);
                 break;
         }
     }

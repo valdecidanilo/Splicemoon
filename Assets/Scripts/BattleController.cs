@@ -83,8 +83,8 @@ public class BattleController : MonoBehaviour
         opponentPokeData = child.AddComponent<SpliceMon>();
         opponentPokeData.Initialize(data, isFemale);
         opponentPokeData.level = currentLevel;
-        uIManager.opponentInfo.healthBar.SetHealth(opponentPokeData.hpStats.currentStat);
-        uIManager.opponentInfo.healthBar.SetMaxHealth(opponentPokeData.hpStats.baseStat);
+        uIManager.opponentInfo.healthBar.SetHealth(opponentPokeData.stats.hpStats.currentStat);
+        uIManager.opponentInfo.healthBar.SetMaxHealth(opponentPokeData.stats.hpStats.baseStat);
     }
     private IEnumerator StartBattleStep()
     {
@@ -105,7 +105,7 @@ public class BattleController : MonoBehaviour
         uIManager.animatorCallGround.SetTrigger(StartAnimation);
         yield return new WaitForSeconds(1.5f);
         uIManager.animatorBoardOpponent.SetTrigger(StartAnimation);
-        yield return ApiManager.GetSound(opponentPokeData.PokeData.soundUrl.latest, callback => { battleSound.PlayOneShot(callback); });
+        yield return ApiManager.GetSound(opponentPokeData.crySound, callback => { battleSound.PlayOneShot(callback); });
         yield return uIManager.Dialogue($"{opponentPokeData.nameSpliceMon.ToUpper()} Selvagem Apareceu!", 200f, waitForInput: true);
         yield return new WaitForSeconds(1f);
         yield return uIManager.Dialogue($"Vai! {playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()}!", 200f, waitForInput: false);
@@ -125,19 +125,19 @@ public class BattleController : MonoBehaviour
         
         uIManager.inBattle = true;
         yield return uIManager.Dialogue(
-            $"{playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} usou! \n{playerBagSplicemons.currentSplicemon.PokeData.movesAttack[id].move.nameAttack.ToUpper()}", 
+            $"{playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} usou! \n{playerBagSplicemons.currentSplicemon.stats.movesAttack[id].nameMove.ToUpper()}", 
             waitForInput: false,
             hidenMessage: false);
         yield return new WaitForSeconds(0.5f);
         uIManager.playerInfo.animationSplicemon.SetTrigger(Attack);
         yield return new WaitForSeconds(0.7f);
         uIManager.opponentInfo.animationSplicemon.SetTrigger(Damage);
-        playerBagSplicemons.currentSplicemon.itensMove[id].ppCurrent--;
+        playerBagSplicemons.currentSplicemon.stats.movesAttack[id].ppCurrent--;
         uIManager.UpdateTextSelectAttack(id);
         var damage = Maths.CalculateDamage(MoveAttack.ppCurrent, 
             playerBagSplicemons.currentSplicemon.level, 
-            playerBagSplicemons.currentSplicemon.attackStats.currentStat, 
-            opponentPokeData.defenseStats.currentStat);
+            playerBagSplicemons.currentSplicemon.stats.attackStats.currentStat, 
+            opponentPokeData.stats.defenseStats.currentStat);
         uIManager.opponentInfo.healthBar.ChangeHealth(-damage);
         battleSound.PlayOneShot(hitClip);
         if(!deathOpponent)
@@ -159,12 +159,14 @@ public class BattleController : MonoBehaviour
             battleSound.PlayOneShot(victoryClip);
             yield return uIManager.Dialogue($"{opponentPokeData.nameSpliceMon.ToUpper()} Selvagem Desmaiou!",
                 200f, waitForInput: true);
-            var exp = playerBagSplicemons.currentSplicemon.GainExperience(opponentPokeData.level);
+            var exp = Maths.GainExperience(opponentPokeData.level, playerBagSplicemons.currentSplicemon.baseExperience,
+                playerBagSplicemons.currentSplicemon.experience, playerBagSplicemons.currentSplicemon.experienceMax, 
+                playerBagSplicemons.currentSplicemon.stats);
             uIManager.playerInfo.expBar.SetExp(exp);
             yield return uIManager.Dialogue(
                 $"{playerBagSplicemons.currentSplicemon.nameSpliceMon.ToUpper()} Ganhou \n {exp} pontos de EXP!",
                 200f, waitForInput: true);
-            yield return uIManager.Dialogue("");
+            yield return uIManager.Dialogue("", waitForInput: false);
             uIManager.ShowMessage();
             //se subiu nivel mostrar no texto.
             // se subiu mostrar janelinha do oque foi upado 
@@ -193,7 +195,7 @@ public class BattleController : MonoBehaviour
         yield return new WaitForSeconds(1f);
     
         yield return uIManager.Dialogue(
-            $"{opponentPokeData.nameSpliceMon} usou!\n{opponentPokeData.PokeData.movesAttack[0].move.nameAttack.ToUpper()}", 
+            $"{opponentPokeData.nameSpliceMon} usou!\n{opponentPokeData.stats.movesAttack[0].nameMove.ToUpper()}", 
             waitForInput: false,
             hidenMessage: false);
     
@@ -205,8 +207,8 @@ public class BattleController : MonoBehaviour
         MoveDetails attack = new();
         var damage = Maths.CalculateDamage(attack.ppCurrent, 
             opponentPokeData.level, 
-            opponentPokeData.attackStats.currentStat, 
-            playerBagSplicemons.currentSplicemon.defenseStats.currentStat);
+            opponentPokeData.stats.attackStats.currentStat, 
+            playerBagSplicemons.currentSplicemon.stats.defenseStats.currentStat);
         uIManager.playerInfo.healthBar.ChangeHealth(-damage);
         battleSound.PlayOneShot(hitClip);
     
