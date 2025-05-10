@@ -11,7 +11,7 @@ namespace Player
         public float originY;
         public float radius = 0.05f;
         public BattleController battleController;
-        public BattleUIManager uIManager;
+        public PlayerUIManager playerUIManager;
         public void TryStartBattle(Action<bool> encounterBattle)
         {
             Vector2 position = new Vector2(transform.position.x, transform.position.y - originY);
@@ -23,7 +23,7 @@ namespace Player
                 if (roll < encounterChance)
                 {
                     encounterBattle?.Invoke(true);
-                    uIManager.StartCoroutine(uIManager.Transition(onComplete =>
+                    playerUIManager.StartCoroutine(playerUIManager.Transition(onComplete =>
                     {
                         if(onComplete) battleController.StartBattle();
                     }));

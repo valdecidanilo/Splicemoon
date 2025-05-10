@@ -5,15 +5,16 @@ namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
-        // Configurações
         public float moveSpeed = .5f;
-        [SerializeField] private float turnDelay = 0.15f; // Ajuste esse valor no Inspector
+        [SerializeField] private float turnDelay = 0.15f;
+        public SpriteRenderer inBattleSpr;
         
         private Vector2 currentDirection;
         private Vector2 inputBuffer;
+        public bool InMenu { get; private set; }
         private bool isMoving;
         private bool isRuning;
-        public bool isInBattle;
+        private bool isInBattle;
         private bool isWaitingToMove = false;
         private bool isTurning;
         
@@ -28,7 +29,7 @@ namespace Player
 
         private void Update()
         {
-            if (isMoving || isInBattle) return;
+            if (isMoving || isInBattle || InMenu) return;
 
             inputBuffer.x = Input.GetAxisRaw("Horizontal");
             inputBuffer.y = Input.GetAxisRaw("Vertical");
@@ -65,6 +66,11 @@ namespace Player
             isWaitingToMove = true;
         }
 
+        public void SetInMenu(bool setInMenu)
+        {
+            InMenu = setInMenu;
+        }
+        public void ForceIdleAnimation() => inputBuffer = Vector2.zero;
         private void UpdateSpriteFlip()
         {
             if (currentDirection.x != 0)
@@ -121,11 +127,16 @@ namespace Player
             battleZone.originY = originY;
             battleZone?.TryStartBattle(encounter =>
             {
-                isInBattle = encounter;
+                SetIsBattle(encounter);
                 inputBuffer = Vector2.zero;
             });
         }
 
+        public void SetIsBattle(bool isBattle)
+        {
+            isInBattle = isBattle;
+            inBattleSpr.enabled = isInBattle;
+        } 
         private bool IsWalkable(Vector3 targetPos)
         {
             return true;
