@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Models
 {
@@ -44,17 +45,36 @@ namespace Models
     [Serializable]
     public class MoveDetails
     {
-        [JsonProperty("accuracy")] [CanBeNull] public int? accuracy { get; set; }
-        [JsonProperty("name")] public string nameMove { get; set; }
-        [JsonProperty("power")] [CanBeNull] public int? powerAttack { get; set; }
-        [JsonProperty("pp")] public int ppMax { get; set; }
-        [JsonProperty("type")] public TypeMove typeMove { get; set; }
-        public int ppCurrent;
+        [JsonProperty("accuracy")]
+        [SerializeField] public int? accuracy;
+
+        [JsonProperty("name")]
+        [SerializeField] public string nameMove;
+
+        [JsonProperty("power")]
+        [SerializeField] public int? powerAttack;
+
+        [JsonProperty("pp")]
+        [SerializeField] public int ppMax;
+
+        [JsonProperty("type")]
+        [SerializeField] public TypeMove typeMove;
+
+        [SerializeField] public int ppCurrent;
+        public int? Accuracy => accuracy;
+        public string NameMove => nameMove;
+        public int? PowerAttack => powerAttack;
+        public int PpMax => ppMax;
+        public TypeMove TypeMove => typeMove;
+        public int PpCurrent => ppCurrent;
     }
+    [Serializable]
     public struct TypeMove
     {
         [JsonProperty("name")] public string typeAttack { get; set; }
         [JsonProperty("url")] public string url { get; set; }
+        public string TypeAttack => typeAttack;
+        public string Url => url;
     }
     //====
     
@@ -84,12 +104,17 @@ namespace Models
         [JsonProperty("slot")] public int slot { get; set; }
         [JsonProperty("name")] public string name { get; set; }
         [JsonProperty("type")] public Type type { get; set; }
+        public int Slot => slot;
+        public string Name => name;
+        public Type Type => type;
     }
 
     public struct Type
     {
         [JsonProperty("name")] public string nameType { get; set; }
         [JsonProperty("url")] public string url { get; set; }
+        public string NameType => nameType;
+        public string Url => url;
     }
     
     //==== Stats
