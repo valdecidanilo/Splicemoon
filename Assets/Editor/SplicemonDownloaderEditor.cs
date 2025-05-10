@@ -52,12 +52,12 @@ namespace Editor
                     var splicemon = ScriptableObject.CreateInstance<SplicemonObject>();
                     splicemon.Initialize(pokeData);
 
-                    var fourfirst = splicemon.moveAttack.Take(4).ToList();
+                    var fourfirst = splicemon.stats.possiblesMoveAttack.Take(4).ToList();
 
                     EditorCoroutineUtility.StartCoroutineOwnerless(GetMoveDetails(fourfirst, moveAttackList =>
                     {
                         Debug.Log($"Download Pokemon {currentId} MoveList Complete.");
-                        splicemon.itensMove = new List<MoveDetails>(moveAttackList);
+                        splicemon.stats.movesAttack = new List<MoveDetails>(moveAttackList);
 
                         SaveSplicemonAsset(splicemon, pokeData.NameSpliceMoon);
                         Debug.Log($"Scriptable Criado: {pokeData.NameSpliceMoon}");
