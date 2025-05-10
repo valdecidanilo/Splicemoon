@@ -9,6 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 963691410576930154}
+  - component: {fileID: 300711950817370197}
+  - component: {fileID: 8300892088617254742}
+  - component: {fileID: 185790082191501975}
   m_Layer: 5
   m_Name: ContainerItem
   m_TagString: Untagged
@@ -37,6 +40,95 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 63.6663, y: 15.0481}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &300711950817370197
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704235253922148482}
+  m_CullTransparentMesh: 1
+--- !u!114 &8300892088617254742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704235253922148482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &185790082191501975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2704235253922148482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61850f1f6a0ce364e883860c5e63c855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 963691410576930154}
+  _interactable: 1
+  transition:
+    targetGraphic: {fileID: 8300892088617254742}
+    childGraphics:
+    - {fileID: 315615628842670333}
+    - {fileID: 7789921608430738765}
+    childTexts:
+    - {fileID: 315615628842670333}
+    constructorSerialized: 1
+    colorTintTransition: 1
+    spriteSwapTransition: 0
+    animationTransition: 0
+    changeChildrenColor: 0
+    changeChildrenAlpha: 0
+    invertColorOnTexts: 0
+    blockColors:
+      m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+      m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+      m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+      m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+      m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+      m_ColorMultiplier: 1
+      m_FadeDuration: 0.1
+    targetColorBlend: {r: 0, g: 0, b: 0, a: 0}
+    spriteState:
+      m_HighlightedSprite: {fileID: 0}
+      m_PressedSprite: {fileID: 0}
+      m_SelectedSprite: {fileID: 0}
+      m_DisabledSprite: {fileID: 0}
+    normalAnimation: {fileID: 0}
+    highlightedAnimation: {fileID: 0}
+    pressedAnimation: {fileID: 0}
+    selectedAnimation: {fileID: 0}
+    disabledAnimation: {fileID: 0}
+  subTransitions: []
+  onClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8641648567796496841
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8057773239305893478
 RectTransform:
   m_ObjectHideFlags: 0

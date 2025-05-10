@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 5465770486062032786}
   - component: {fileID: 985639481707799642}
   - component: {fileID: 8503456758926464955}
+  - component: {fileID: 1692964037034756653}
   m_Layer: 5
   m_Name: CardSlicemon_Slot
   m_TagString: Untagged
@@ -429,6 +430,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1692964037034756653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5468060040512731165}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58a35a59889664f41855ad4aec69cca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  iconSelect: {fileID: 6293554908675867481}
+  iconGender: {fileID: 4931548930331146266}
+  iconSplicemon: {fileID: 4186185793933755539}
+  containerImage: {fileID: 8503456758926464955}
+  containerSelect: []
+  nameSplicemon: {fileID: 5640652507607650595}
+  levelSplicemon: {fileID: 6374618856562749979}
+  hpSplicemon: {fileID: 5330666255870602660}
+  healthBar: {fileID: 490866952906368722}
 --- !u!1 &7456878170603253313
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,6 +834,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdb0bdca67a08334e91738adad843c88, type: 3}
+--- !u!114 &490866952906368722 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1181230982822167899, guid: cdb0bdca67a08334e91738adad843c88, type: 3}
+  m_PrefabInstance: {fileID: 1633535314137670537}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93957264c7c02014bb61d99f86353ba8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8016530892659220305 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8785128593553276120, guid: cdb0bdca67a08334e91738adad843c88, type: 3}
