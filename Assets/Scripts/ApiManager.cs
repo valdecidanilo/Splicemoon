@@ -23,7 +23,6 @@ public class ApiManager : MonoBehaviour
         yield return uwr.SendWebRequest();
         if(uwr.result == UnityWebRequest.Result.Success)
         {
-            //Logger.Log($"json => {uwr.downloadHandler.text}", LogFlags.GET);
             var pokeData = JsonConvert.DeserializeObject<PokeData>(uwr.downloadHandler.text);
             Logger.Log(pokeData.NameSpliceMoon, LogFlags.GET);
             callback.Invoke(pokeData);
