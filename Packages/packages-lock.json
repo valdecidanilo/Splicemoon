@@ -1,11 +1,25 @@
 {
   "dependencies": {
+    "com.gilzoide.sqlite-net": {
+      "version": "https://github.com/gilzoide/unity-sqlite-net.git#1.2.3",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2851fb50b5a4e13ae09733ac6dabc53654cb536a"
+    },
     "com.lenix.logger": {
       "version": "https://github.com/LenixSO/LenixSO-Logger.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
       "hash": "0d2f8b43bcd2f96fc58cc4b7d4eca1381e282937"
+    },
+    "com.notask.custom-button": {
+      "version": "https://github.com/NoTaskStudios/com.notask.custom-button.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "4a7f64b47866bd121a523f883788d97fd187f1f1"
     },
     "com.unity.2d.animation": {
       "version": "10.1.4",
@@ -126,6 +140,13 @@
         "com.unity.nuget.mono-cecil": "1.11.4",
         "com.unity.test-framework.performance": "3.0.3"
       },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.editorcoroutines": {
+      "version": "1.0.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.ext.nunit": {

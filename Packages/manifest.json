@@ -1,7 +1,10 @@
 {
   "dependencies": {
+    "com.gilzoide.sqlite-net": "https://github.com/gilzoide/unity-sqlite-net.git#1.2.3",
     "com.lenix.logger": "https://github.com/LenixSO/LenixSO-Logger.git",
+    "com.notask.custom-button": "https://github.com/NoTaskStudios/com.notask.custom-button.git#upm",
     "com.unity.collab-proxy": "2.7.1",
+    "com.unity.editorcoroutines": "1.0.0",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.35",
     "com.unity.ide.visualstudio": "2.0.23",
