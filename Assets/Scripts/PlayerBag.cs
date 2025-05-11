@@ -4,7 +4,7 @@ using Inventory;
 using Models;
 using UnityEngine;
 
-public class PlayerBagSplicemons : MonoBehaviour
+public class PlayerBag : MonoBehaviour
 {
     public SpliceMon currentSplicemon;
     public List<SpliceMon> splicemons = new ();
