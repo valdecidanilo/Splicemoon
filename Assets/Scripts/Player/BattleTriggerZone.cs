@@ -1,4 +1,5 @@
 using System;
+using UI;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,7 +12,7 @@ namespace Player
         public float originY;
         public float radius = 0.05f;
         public BattleController battleController;
-        public PlayerUIManager playerUIManager;
+        public PlayerUI playerUI;
         public void TryStartBattle(Action<bool> encounterBattle)
         {
             Vector2 position = new Vector2(transform.position.x, transform.position.y - originY);
@@ -23,7 +24,7 @@ namespace Player
                 if (roll < encounterChance)
                 {
                     encounterBattle?.Invoke(true);
-                    playerUIManager.StartCoroutine(playerUIManager.Transition(onComplete =>
+                    playerUI.StartCoroutine(playerUI.Transition(onComplete =>
                     {
                         if(onComplete) battleController.StartBattle();
                     }));
