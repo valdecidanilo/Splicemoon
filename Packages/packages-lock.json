@@ -213,8 +213,8 @@
       }
     },
     "com.unity.nuget.mono-cecil": {
-      "version": "1.11.4",
-      "depth": 3,
+      "version": "1.11.5",
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
