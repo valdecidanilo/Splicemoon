@@ -120,9 +120,9 @@ public class BattleController : MonoBehaviour
         {
             AudioManager.Instance.PlayAudioClipExtern(callback);
         });
-        yield return uI.Dialogue($"{opponentPokeData.nameSpliceMon.ToUpper()} Selvagem Apareceu!", 200f, waitForInput: true);
+        yield return uI.Dialogue($"{opponentPokeData.nameSpliceMon.ToUpper()} Selvagem Apareceu!", GameInfo.lettersPerSeconds, waitForInput: true);
         yield return new WaitForSeconds(1f);
-        yield return uI.Dialogue($"Vai! {playerBag.currentSplicemon.nameSpliceMon.ToUpper()}!", 200f, waitForInput: false);
+        yield return uI.Dialogue($"Vai! {playerBag.currentSplicemon.nameSpliceMon.ToUpper()}!", GameInfo.lettersPerSeconds, waitForInput: false);
         yield return new WaitForSeconds(.5f);
         uI.animatorCallGround.SetTrigger(StartAnimation);
         yield return new WaitForSeconds(1.06f);
@@ -158,8 +158,6 @@ public class BattleController : MonoBehaviour
             yield return PerformOpponentMove();
         else
         {
-            uI.sourceBattleSound.mute = true; 
-           
             yield return ApiManager.GetSound(opponentPokeData.crySound, callback =>
             {
                 AudioManager.Instance.PlayAudioClipExtern(callback);
@@ -237,8 +235,6 @@ public class BattleController : MonoBehaviour
             uI.currentInterface = BattleUI.CurrentInterface.UserSelect;
             yield return uI.Dialogue($"O que o {playerBag.currentSplicemon.nameSpliceMon.ToUpper()} fará? ", waitForInput: false);
         }
-        uI.sourceBattleSound.mute = false; 
-        uI.sourceBattleSound.Stop();
         uI.inBattle = false;
     }
 
