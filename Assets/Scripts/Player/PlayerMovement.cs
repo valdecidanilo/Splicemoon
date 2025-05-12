@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Player
@@ -7,14 +8,15 @@ namespace Player
     {
         public float moveSpeed = .5f;
         [SerializeField] private float turnDelay = 0.15f;
-        public SpriteRenderer inBattleSpr;
+        public string nickname;
+        public TMP_Text nicknameText;
         
         private Vector2 currentDirection;
         private Vector2 inputBuffer;
         public bool InMenu { get; private set; }
         private bool isMoving;
         private bool isRuning;
-        private bool isInBattle;
+        public bool IsInBattle { get; private set; }
         private bool isWaitingToMove = false;
         private bool isTurning;
         
@@ -29,7 +31,7 @@ namespace Player
 
         private void Update()
         {
-            if (isMoving || isInBattle || InMenu) return;
+            if (isMoving || IsInBattle || InMenu) return;
 
             inputBuffer.x = Input.GetAxisRaw("Horizontal");
             inputBuffer.y = Input.GetAxisRaw("Vertical");
@@ -64,6 +66,11 @@ namespace Player
             UpdateSpriteFlip();
             yield return new WaitForSeconds(turnDelay);
             isWaitingToMove = true;
+        }
+        public void SetNickname(string currentNickname)
+        {
+            nickname = currentNickname;
+            nicknameText.SetText(nickname);
         }
 
         public void SetInMenu(bool setInMenu)
@@ -134,8 +141,9 @@ namespace Player
 
         public void SetIsBattle(bool isBattle)
         {
-            isInBattle = isBattle;
-            inBattleSpr.enabled = isInBattle;
+            IsInBattle = isBattle;
+            var nicknameInBattle = isBattle ? $"<size=150%><sprite=12></size>\n{nickname}" : $"{nickname}";
+            nicknameText.SetText($"{nicknameInBattle}");
         } 
         private bool IsWalkable(Vector3 targetPos)
         {

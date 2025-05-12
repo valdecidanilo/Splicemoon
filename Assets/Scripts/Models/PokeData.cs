@@ -69,10 +69,14 @@ namespace Models
         public int PpCurrent => ppCurrent;
     }
     [Serializable]
-    public struct TypeMove
+    public class TypeMove
     {
-        [JsonProperty("name")] public string typeAttack { get; set; }
-        [JsonProperty("url")] public string url { get; set; }
+        [JsonProperty("name")]
+        [SerializeField] private string typeAttack;
+
+        [JsonProperty("url")]
+        [SerializeField] private string url;
+
         public string TypeAttack => typeAttack;
         public string Url => url;
     }
