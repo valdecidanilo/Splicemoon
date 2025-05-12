@@ -6,10 +6,3 @@ MonoImporter:
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 119922
-  packageName: PUN 2 - FREE
-  packageVersion: 2.50
-  assetPath: Assets/Photon/PhotonLibs/WebSocket/WebSocket.cs
-  uploadId: 743446
