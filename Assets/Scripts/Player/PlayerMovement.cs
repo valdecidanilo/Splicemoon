@@ -1,12 +1,15 @@
 using System.Collections;
+using Fusion;
 using TMPro;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : NetworkBehaviour
     {
         public float moveSpeed = .5f;
+        public float RunSpeed = 2f;
+        public float WalkSpeed = 1f;
         [SerializeField] private float turnDelay = 0.15f;
         public string nickname;
         public TMP_Text nicknameText;
@@ -31,12 +34,19 @@ namespace Player
 
         private void Update()
         {
+            
+        }
+
+        public override void FixedUpdateNetwork()
+        {
+            //base.FixedUpdateNetwork();
+            if (HasStateAuthority == false) return;
             if (isMoving || IsInBattle || InMenu) return;
 
             inputBuffer.x = Input.GetAxisRaw("Horizontal");
             inputBuffer.y = Input.GetAxisRaw("Vertical");
             isRuning = Input.GetKey(KeyCode.LeftShift);
-            moveSpeed = isRuning ? 1f : .5f;
+            moveSpeed = isRuning ? RunSpeed : WalkSpeed;
             animatorController.SetRunState(isRuning);
 
             if (inputBuffer.x != 0) inputBuffer.y = 0;
@@ -60,6 +70,7 @@ namespace Player
                 animatorController.SetMoveDirection(Vector2.zero, false);
             }
         }
+
         private IEnumerator HandleTurn()
         {
             animatorController.SetMoveDirection(currentDirection, false);
@@ -106,7 +117,7 @@ namespace Player
                 transform.position = Vector3.MoveTowards(
                     transform.position, 
                     destination, 
-                    moveSpeed * Time.deltaTime
+                    moveSpeed * Runner.DeltaTime
                 );
         
                 UpdateGrassDetection();
