@@ -94,7 +94,7 @@ namespace UI
             for (var i = 0; i < playerBag.splicemons.Count && i + 1 < cards.Count; i++)
             {
                 var splicemon = playerBag.splicemons[i];
-                var card = cards[i + 1];
+                var card = cards[i];
 
                 card.gameObject.SetActive(true);
                 card.SetSplicemon(splicemon.nameSpliceMon, splicemon.level,

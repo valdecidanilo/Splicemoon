@@ -16,7 +16,6 @@ namespace UI
         public GameObject uiBag;
         public GameObject uiProfile;
         public GameObject menu;
-        public AudioSource sourceBattleSound;
         public Animator animatorTransition;
         public List<CustomButtonClass> buttons;
 
@@ -30,7 +29,7 @@ namespace UI
 
         private void Update()
         {
-            if(player.inBattleSpr.enabled || stopNavigation) return;
+            if(player.IsInBattle || stopNavigation) return;
             HandleMenuToggle();
             if (player.InMenu)
             {
@@ -100,7 +99,7 @@ namespace UI
 
         public IEnumerator Transition(Action<bool> onComplete)
         {
-            sourceBattleSound.Play();
+            AudioManager.Instance.Play("Battle");
             animatorTransition.SetTrigger(Start);
             yield return new WaitForSeconds(2.5f);
             onComplete?.Invoke(true);

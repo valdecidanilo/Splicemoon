@@ -23,8 +23,6 @@ namespace UI
         public Animator animatorBoardOpponent;
         public Animator animatorBoardPlayer;
     
-        public AudioSource sourceBattleSound;
-    
         public InfoSplicemon opponentInfo;
         public InfoSplicemon playerInfo;
         public bool isBagOrSelect;
@@ -43,7 +41,6 @@ namespace UI
         [SerializeField] public bool inBattle = false;
         public bool isTryRunning;
         [SerializeField] public bool firstTime = true;
-        public AudioSource audioSource;
 
         public TMP_Text typeAttack;
         public TMP_Text powerPoint;
@@ -65,7 +62,7 @@ namespace UI
             {
                 if(Input.GetKeyDown(KeyCode.Backspace) || Input.GetKeyDown(KeyCode.Escape))
                 {
-                    audioSource.Play();
+                    AudioManager.Instance.Play("ClickUI");
                     userAttackInterface.gameObject.SetActive(false);
                     userSelectInterface.gameObject.SetActive(true);
                     currentInterface = 0;
@@ -94,7 +91,7 @@ namespace UI
             if (currentSelected != id)
             {
                 currentSelected = id;
-                audioSource.Play();
+                AudioManager.Instance.Play("ClickUI");
                 if (currentInterface == CurrentInterface.Attack)
                 {
                     typeAttack.SetText($"TYPE/{playerBag.currentSplicemon.stats.movesAttack[id].TypeMove.TypeAttack}");
@@ -124,7 +121,7 @@ namespace UI
 
         private void HandleUserInterface(int id)
         {
-            audioSource.Play();
+            AudioManager.Instance.Play("ClickUI");
             switch (id)
             {
                 case 0:
@@ -187,7 +184,7 @@ namespace UI
         }
         private void HandlerAttackInterface(int id)
         {
-            audioSource.Play();
+            AudioManager.Instance.Play("ClickUI");
             switch (id)
             {
                 case 0:
