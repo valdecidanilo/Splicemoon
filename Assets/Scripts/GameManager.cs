@@ -2,10 +2,13 @@ using System.Collections;
 using DB;
 using DB.Data;
 using Models;
+using Networking;
 using Player;
 using TMPro;
+using UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using Logger = LenixSO.Logger.Logger;
 using Random = UnityEngine.Random;
 
@@ -14,9 +17,13 @@ public class GameManager : MonoBehaviour
     public Button join;
     public Button register;
     public AuthController authController;
+    public PlayerUI playerUI;
     public PlayerBag player;
     public PlayerMovement playerMovement;
+    public BattleController battleController;
+    public BattleUI battleUI;
     public GameObject authUI;
+    public GameObject loader;
     public GameObject transitionToGame;
     public TMP_Text loadingText;
     public TMP_Text errorText;
@@ -30,7 +37,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         authController.Database = new Database();
-        playerMovement.SetInMenu(true);
+        //playerMovement.SetInMenu(true);
     }
 
     private void Start()
@@ -44,6 +51,7 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("ClickUI");
         var user = authController.Login(email.text, password.text);
         StartCoroutine(StepLogin(user));
+        loader.gameObject.SetActive(true);
     }
 
     private void Register()
@@ -122,32 +130,16 @@ public class GameManager : MonoBehaviour
             Logger.Log($"Bem-vindo de volta, {user.Nickname}! ID: {user.Id}");
 
             var splicemonDataList = authController.Database.GetSplicemonsByUser(user.Id);
-
-            player.splicemons.Clear();
-
-            for (int i = 0; i < splicemonDataList.Count; i++)
+        
+            SessionManager.Instance.SetSessionData(user, splicemonDataList, tempNickname);
+            var started = false;
+            yield return authController.StartSharedMode().AsIEnumerator(result => started = result);
+            if (!started)
             {
-                var data = splicemonDataList[i];
-                Logger.Log($"Carregando Splicemon {i + 1}/{splicemonDataList.Count}: {data.Name}");
-
-                var go = new GameObject($"Splicemon_{data.Name}");
-                go.transform.SetParent(player.transform);
-
-                var splicemon = go.AddComponent<SpliceMon>();
-                splicemon.InitializeFromData(data);
-
-                if (i == 0)
-                    player.currentSplicemon = splicemon;
-                else
-                {
-                    player.splicemons.Add(splicemon);
-                }
-
-                yield return null;
+                yield return ShowError("Falha ao conectar ao servidor.");
+                yield break;
             }
-
-            player.bagInitialized = true;
-
+            
             yield return StartCoroutine(TransitionToGame());
         }
         else
@@ -159,20 +151,33 @@ public class GameManager : MonoBehaviour
     {
         authUI.SetActive(false);
         transitionToGame.SetActive(true);
-
+        loader.gameObject.SetActive(false);
+        playerMovement = FindFirstObjectByType<PlayerMovement>();
+        player = FindFirstObjectByType<PlayerBag>();
+        //Refatorar
+        battleUI.playerBag = player;
+        battleController.playerMovement = playerMovement;
+        battleController.playerBag = player;
+        player.GetComponentInChildren<BattleTriggerZone>().battleController = battleController;
+        player.GetComponentInChildren<BattleTriggerZone>().playerUI = playerUI;
+        //=======
         yield return new WaitForSeconds(Random.Range(0.5f, 1f));
         yield return StartCoroutine(ShowLoading("Carregando mundo", 1.5f));
-        
-        yield return StartCoroutine(ShowLoading("Carregando Splicemons", 1.8f));
-        player.currentSplicemon.LoadMoves();
         playerMovement.SetNickname(tempNickname);
+        playerUI.player = playerMovement;
+        yield return StartCoroutine(ShowLoading("Carregando Splicemons", 1.8f));
+        var go = new GameObject($"Splicemon_{SessionManager.Instance.SplicemonDataList[0].Name}");
+        go.transform.SetParent(player.transform);
+        player.currentSplicemon = go.AddComponent<SpliceMon>();
+        player.currentSplicemon.InitializeFromData(SessionManager.Instance.SplicemonDataList[0]);
+        player.bagInitialized = true;
+        yield return StartCoroutine(ShowLoading("Carregando Movimentos", 1.8f));
+        player.currentSplicemon.LoadMoves();
         yield return StartCoroutine(ShowLoading("Fazendo fusões", 2f));
-        
+        AudioManager.Instance.Play("Game");
         yield return new WaitForSeconds(0.5f);
-
         transitionToGame.SetActive(false);
         playerMovement.SetInMenu(false);
-        AudioManager.Instance.Play("Game");
     }
 
     private IEnumerator ShowLoading(string baseText, float duration)
