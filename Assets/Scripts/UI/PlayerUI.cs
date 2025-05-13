@@ -11,7 +11,7 @@ namespace UI
     {
         [Header("Referências")] 
         public PlayerMovement player;
-
+        
         public GameObject uiSplicemon;
         public GameObject uiBag;
         public GameObject uiProfile;
@@ -29,6 +29,7 @@ namespace UI
 
         private void Update()
         {
+            if (player == null) return;
             if(player.IsInBattle || stopNavigation) return;
             HandleMenuToggle();
             if (player.InMenu)
