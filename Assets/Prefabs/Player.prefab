@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
   RunSpeed: 1
-  WalkSpeed: 1
+  WalkSpeed: 0.5
   turnDelay: 0.1
   nickname: Test
   nicknameText: {fileID: 4618528087516192858}
