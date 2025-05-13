@@ -11,7 +11,7 @@ public class AuthController : MonoBehaviour
     {
         return Database.LoginUser(email, password);
     }
-    public (bool,string, int) Register(string email, string password, string nickname)
+    public (bool,string, UserData) Register(string email, string password, string nickname)
     {
         return Database.RegisterUser(email, password, nickname);
     }

@@ -23,14 +23,14 @@ namespace DB
             db.CreateTable<UserData>();
         }
         string regexEmail = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
-        public (bool, string, int) RegisterUser(string email, string password, string nickname)
+        public (bool, string, UserData) RegisterUser(string email, string password, string nickname)
         {
-            if (password.Length < 6) return (false, "Senha muito curta", -1);
-            if(nickname.Length < 3) return (false, "Nickname muito curto", -1);
-            if(!System.Text.RegularExpressions.Regex.IsMatch(email, regexEmail)) return (false, "Email inválido", -1);
+            if (password.Length < 6) return (false, "Senha muito curta", null);
+            if(nickname.Length < 3) return (false, "Nickname muito curto", null);
+            if(!System.Text.RegularExpressions.Regex.IsMatch(email, regexEmail)) return (false, "Email inválido", null);
             if (db.Table<UserData>().Any(u => u.Email == email))
             {
-                return (false, "Usuário já existe", -1);
+                return (false, "Usuário já existe", null);
             }
 
             var salt = PasswordHasher.GenerateSalt();
@@ -45,7 +45,7 @@ namespace DB
             };
 
             db.Insert(newUser);
-            return (true, "Usuário registrado com sucesso", newUser.Id);
+            return (true, "Usuário registrado com sucesso", newUser);
         }
 
         public UserData LoginUser(string email, string password)

@@ -62,23 +62,30 @@ public class GameManager : MonoBehaviour
             Logger.Log($"Bem-vindo, {nickname.text}! ID: {onSucess.Item2}");
             var randomPokemonId = Random.Range(1, 151);
             StartCoroutine(GiveRandomSpliceMon(onSucess.Item3, randomPokemonId));
-            StartCoroutine(TransitionToGame());
+            
         }
 
         if(!onSucess.Item1) StartCoroutine(ShowError(onSucess.Item2));
     }
-    private IEnumerator GiveRandomSpliceMon(int userId, int pokeId)
+    private IEnumerator GiveRandomSpliceMon(UserData user, int pokeId)
     {
         yield return ApiManager.GetPokeData(pokeId, pokeData =>
         {
+            // Por para adicionar depois.
             var go = new GameObject($"Splicemon_{pokeData.NameSpliceMoon}");
             go.transform.SetParent(player.transform);
 
             var splicemon = go.AddComponent<SpliceMon>();
             splicemon.level = 2;
             splicemon.Initialize(pokeData);
-            
-            var data = new SplicemonData
+            StartCoroutine(StepRegister(user, splicemon));
+        });
+    }
+
+    private IEnumerator StepRegister(UserData user, SpliceMon splicemon)
+    {
+        player.currentSplicemon = splicemon;
+        var data = new SplicemonData
             {
                 Name = splicemon.nameSpliceMon,
                 Level = splicemon.level,
@@ -90,7 +97,7 @@ public class GameManager : MonoBehaviour
                 BackSprite = splicemon.backSprite,
                 CrySound = splicemon.crySound,
                 GrowthRate = splicemon.growthRate.ToString(),
-                UserId = userId,
+                UserId = user.Id,
                 
                 IvHp = splicemon.stats.hpStats.iv,
                 IvAttack = splicemon.stats.attackStats.iv,
@@ -116,12 +123,20 @@ public class GameManager : MonoBehaviour
                 MovesJson = JsonUtility.ToJson(new MoveListWrapper { moves = splicemon.stats.movesAttack }),
                 PossibleMovesJson = JsonUtility.ToJson(new StringListWrapper { items = splicemon.stats.possiblesMoveAttack }),
             };
-            player.currentSplicemon = splicemon;
-            authController.Database.SaveSplicemonForUser(data, userId);
-            StartCoroutine(TransitionToGame());
-        });
-    }
+        authController.Database.SaveSplicemonForUser(data, user.Id);
+        var splicemonDataList = authController.Database.GetSplicemonsByUser(user.Id);
+        SessionManager.Instance.SetSessionData(user, splicemonDataList, tempNickname);
+        var started = false;
+        yield return authController.StartSharedMode().AsIEnumerator(result => started = result);
+        if (!started)
+        {
+            yield return ShowError("Falha ao conectar ao servidor.");
+            yield break;
+        }
+            
+        yield return StartCoroutine(TransitionToGame());
 
+    }
     private IEnumerator StepLogin(UserData user)
     {
         if (user != null)
