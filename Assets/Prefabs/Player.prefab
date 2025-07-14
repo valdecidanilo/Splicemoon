@@ -89,7 +89,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 328249184460879176}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
   m_Name: 
@@ -513,7 +513,7 @@ MonoBehaviour:
   grassLayer:
     serializedVersion: 2
     m_Bits: 8
-  encounterChance: 0.8
+  encounterChance: 0.2
   originY: 0.04
   radius: 0.05
   battleController: {fileID: 0}

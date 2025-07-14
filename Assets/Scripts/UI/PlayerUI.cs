@@ -108,6 +108,7 @@ namespace UI
 
         public IEnumerator TransitionEndBattle(Action<bool> onComplete)
         {
+            AudioManager.Instance.Play("Game");
             animatorTransition.SetTrigger(End);
             yield return new WaitForSeconds(1f);
             onComplete?.Invoke(true);

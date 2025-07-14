@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         {
             Logger.Log($"Bem-vindo, {nickname.text}! ID: {onSucess.Item2}");
             var randomPokemonId = Random.Range(1, 151);
+            Logger.Log($"Poke ID: {randomPokemonId}");
             StartCoroutine(GiveRandomSpliceMon(onSucess.Item3, randomPokemonId));
             
         }
@@ -71,59 +72,24 @@ public class GameManager : MonoBehaviour
     {
         yield return ApiManager.GetPokeData(pokeId, pokeData =>
         {
-            // Por para adicionar depois.
-            var go = new GameObject($"Splicemon_{pokeData.NameSpliceMoon}");
-            go.transform.SetParent(player.transform);
+            if (pokeData == null)
+            {
+                Logger.LogError($"Erro: pokeData veio nulo para o ID: {pokeId}");
+                return;
+            }
 
-            var splicemon = go.AddComponent<SpliceMon>();
-            splicemon.level = 2;
-            splicemon.Initialize(pokeData);
-            StartCoroutine(StepRegister(user, splicemon));
+            if (player == null)
+                player = FindFirstObjectByType<PlayerBag>();
+
+            InstanceSliceMons(pokeData, user);
+
+            StartCoroutine(StepRegister(user, pokeData));
         });
     }
 
-    private IEnumerator StepRegister(UserData user, SpliceMon splicemon)
+    private IEnumerator StepRegister(UserData user, PokeData pokeData)
     {
-        player.currentSplicemon = splicemon;
-        var data = new SplicemonData
-            {
-                Name = splicemon.nameSpliceMon,
-                Level = splicemon.level,
-                Nature = splicemon.nature,
-                Experience = splicemon.experience,
-                ExperienceMax = splicemon.experienceMax,
-                BaseExperience = splicemon.baseExperience,
-                FrontSprite = splicemon.frontSprite,
-                BackSprite = splicemon.backSprite,
-                CrySound = splicemon.crySound,
-                GrowthRate = splicemon.growthRate.ToString(),
-                UserId = user.Id,
-                
-                IvHp = splicemon.stats.hpStats.iv,
-                IvAttack = splicemon.stats.attackStats.iv,
-                IvSpAttack = splicemon.stats.specialAttackStats.iv,
-                IvSpDefense = splicemon.stats.specialDefenseStats.iv,
-                IvDefense = splicemon.stats.defenseStats.iv,
-                IvSpeed = splicemon.stats.speedStats.iv,
-                
-                Hp = splicemon.stats.hpStats.currentStat,
-                Speed = splicemon.stats.speedStats.currentStat,
-                Attack = splicemon.stats.attackStats.currentStat,
-                Defense = splicemon.stats.defenseStats.currentStat,
-                SpAttack = splicemon.stats.specialAttackStats.currentStat,
-                SpDefense = splicemon.stats.specialDefenseStats.currentStat,
-                
-                EffortHp = splicemon.stats.hpStats.effort,
-                EffortSpeed = splicemon.stats.speedStats.effort,
-                EffortAttack = splicemon.stats.attackStats.effort,
-                EffortDefense = splicemon.stats.defenseStats.effort,
-                EffortSpAttack = splicemon.stats.specialAttackStats.effort,
-                EffortSpDefense = splicemon.stats.specialDefenseStats.effort,
-                
-                MovesJson = JsonUtility.ToJson(new MoveListWrapper { moves = splicemon.stats.movesAttack }),
-                PossibleMovesJson = JsonUtility.ToJson(new StringListWrapper { items = splicemon.stats.possiblesMoveAttack }),
-            };
-        authController.Database.SaveSplicemonForUser(data, user.Id);
+        
         var splicemonDataList = authController.Database.GetSplicemonsByUser(user.Id);
         SessionManager.Instance.SetSessionData(user, splicemonDataList, tempNickname);
         var started = false;
@@ -135,7 +101,57 @@ public class GameManager : MonoBehaviour
         }
             
         yield return StartCoroutine(TransitionToGame());
+    }
 
+    private void InstanceSliceMons(PokeData pokeData, UserData user)
+    {
+        var go = new GameObject($"Splicemon_{pokeData.NameSpliceMoon}");
+
+        var splicemon = go.AddComponent<SpliceMon>();
+        splicemon.level = 2;
+        splicemon.Initialize(pokeData);
+
+        var data = new SplicemonData
+        {
+            Name = splicemon.nameSpliceMon,
+            Level = splicemon.level,
+            Nature = splicemon.nature,
+            Experience = splicemon.experience,
+            ExperienceMax = splicemon.experienceMax,
+            BaseExperience = splicemon.baseExperience,
+            FrontSprite = splicemon.frontSprite,
+            BackSprite = splicemon.backSprite,
+            CrySound = splicemon.crySound,
+            GrowthRate = splicemon.growthRate.ToString(),
+            UserId = user.Id,
+            
+            IvHp = splicemon.stats.hpStats.iv,
+            IvAttack = splicemon.stats.attackStats.iv,
+            IvSpAttack = splicemon.stats.specialAttackStats.iv,
+            IvSpDefense = splicemon.stats.specialDefenseStats.iv,
+            IvDefense = splicemon.stats.defenseStats.iv,
+            IvSpeed = splicemon.stats.speedStats.iv,
+            
+            Hp = splicemon.stats.hpStats.currentStat,
+            Speed = splicemon.stats.speedStats.currentStat,
+            Attack = splicemon.stats.attackStats.currentStat,
+            Defense = splicemon.stats.defenseStats.currentStat,
+            SpAttack = splicemon.stats.specialAttackStats.currentStat,
+            SpDefense = splicemon.stats.specialDefenseStats.currentStat,
+            
+            EffortHp = splicemon.stats.hpStats.effort,
+            EffortSpeed = splicemon.stats.speedStats.effort,
+            EffortAttack = splicemon.stats.attackStats.effort,
+            EffortDefense = splicemon.stats.defenseStats.effort,
+            EffortSpAttack = splicemon.stats.specialAttackStats.effort,
+            EffortSpDefense = splicemon.stats.specialDefenseStats.effort,
+            
+            MovesJson = JsonUtility.ToJson(new MoveListWrapper { moves = splicemon.stats.movesAttack }),
+            PossibleMovesJson = JsonUtility.ToJson(new StringListWrapper { items = splicemon.stats.possiblesMoveAttack }),
+        };
+
+        authController.Database.SaveSplicemonForUser(data, user.Id);
+        Destroy(go); 
     }
     private IEnumerator StepLogin(UserData user)
     {
